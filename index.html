@@ -5,33 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Gabriel De Melo Silva</title>
-        <style>
+    <style>
         body {
             background-image: url('meufundo.png');
             
-            /* Faz a imagem cobrir toda a tela sem distorcer */
+          
             background-size: cover;
             
-            /* Centraliza a imagem na página */
+            
             background-position: center center;
             
-            /* Impede que a imagem se repita como um mosaico */
+           
             background-repeat: no-repeat;
             
-            /* Mantém o fundo fixo enquanto o usuário rola a página */
+            
             background-attachment: fixed;
 
-            /* Cor de fundo escura de segurança para destacar textos e o ícone do GitHub */
+            
             background-color: #121212;
 
             color: white;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 40px; /* Um espaço nas bordas para não colar na tela */
-            text-align: center; /* Centraliza os textos e os ícones */
+            padding: 40px; 
+            text-align: center; 
         }
         
-        /* Centraliza o bloco de redes sociais na tela */
+        
         .bloco-redes {
             display: flex;
             gap: 25px;       
@@ -40,17 +40,20 @@
             margin-top: 30px;
         }
 
-        /* Configuração geral dos ícones */
-        .bloco-redes a i {
+        
+        .bloco-redes a i, .bloco-redes a img {
             font-size: 40px;     
+            width: 40px;
+            height: 40px;
             transition: 0.3s;     
         }
 
-        .bloco-redes a i:hover {
-            transform: scale(1.2); /* Aumenta um pouquinho ao passar o mouse */
+      
+        .bloco-redes a:hover i, .bloco-redes a:hover img {
+            transform: scale(1.2); 
         }
 
-        /* INSTAGRAM */
+      
         .link-instagram i {
             color: #E1306C;      
         }
@@ -58,15 +61,15 @@
             color: #B12352;      
         }
 
-        /* TIKTOK */
+      
         .link-tiktok i {
-            color: #00f2fe; /* Mudei para azul claro para destacar no fundo escuro */    
+            color: #00f2fe;  
         }
         .link-tiktok i:hover {
-            color: #fe0979; /* Efeito hover rosa marcante do TikTok */
+            color: #fe0979; 
         }
 
-        /* LINKEDIN */
+
         .link-linkedin i {
             color: #0077B5;
         }
@@ -74,7 +77,7 @@
             color: #005582;       
         }
 
-        /* GITHUB */
+    
         .link-github i {
             color: #ffffff;
         }
@@ -82,12 +85,14 @@
             color: #adb5bd;
         }
 
-        /* LETTERBOXD */
-        .link-letterboxd i {
-            color: #00e054;    
+       
+        .link-letterboxd img {
+            
+            filter: invert(53%) sepia(93%) saturate(1754%) hue-rotate(113deg) brightness(97%) contrast(105%);
         }
-        .link-letterboxd i:hover {
-            color: #ff8000; 
+        .link-letterboxd:hover img {
+
+            filter: invert(55%) sepia(81%) saturate(2971%) hue-rotate(12deg) brightness(101%) contrast(101%);
         }
     </style>
 
@@ -114,8 +119,8 @@
             <i class="fa-brands fa-github"></i>
         </a>
 
-        <a href="https://boxd.it/fHchF" target="_blank" class="link-letterboxd"> 
-            <i class="fa-solid fa-film"></i> </a>
+        <a href="https://boxd.it/fHchF" target="_blank" class="link-letterboxd">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="Letterboxd">
         </a>
     </div>
 
