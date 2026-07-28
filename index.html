@@ -6,41 +6,85 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>gabriel legal</title>
     <style>
+        /* Variáveis de cores para o Dark/Light Mode */
+        :root {
+            --bg-color: #121212;
+            --container-bg: rgba(20, 20, 20, 0.85);
+            --terminal-bg: #0d0d0d;
+            --text-color: #ffffff;
+            --accent-color: #00ff66; /* Verde terminal */
+            --border-color: #333333;
+        }
+
+        body.light-mode {
+            --bg-color: #f4f4f9;
+            --container-bg: rgba(255, 255, 255, 0.9);
+            --terminal-bg: #1e1e1e;
+            --text-color: #1a1a1a;
+            --accent-color: #0088cc;
+            --border-color: #cccccc;
+        }
+
         body {
             background-image: url('meufundo.png');
-            
-          
             background-size: cover;
-            
-            
             background-position: center center;
-            
-           
             background-repeat: no-repeat;
-            
-            
             background-attachment: fixed;
-
-            
-            background-color: #121212;
-
-            color: white;
-            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 40px; 
-            text-align: center; 
+            padding: 40px 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        
-        
+
+        /* Botão para mudar Tema */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--container-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Cartão Centralizado */
+        .main-card {
+            background: var(--container-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Bloco das Redes Sociais */
         .bloco-redes {
             display: flex;
             gap: 25px;       
             justify-content: center;
             align-items: center; 
-            margin-top: 30px;
+            margin: 25px 0;
         }
 
-        
         .bloco-redes a i, .bloco-redes a img {
             font-size: 40px;     
             width: 40px;
@@ -48,80 +92,223 @@
             transition: 0.3s;     
         }
 
-      
         .bloco-redes a:hover i, .bloco-redes a:hover img {
             transform: scale(1.2); 
         }
 
-      
-        .link-instagram i {
-            color: #E1306C;      
-        }
-        .link-instagram i:hover {
-            color: #B12352;      
-        }
+        .link-instagram i { color: #E1306C; }
+        .link-instagram i:hover { color: #B12352; }
 
-      
-        .link-tiktok i {
-            color: #00f2fe;  
-        }
-        .link-tiktok i:hover {
-            color: #fe0979; 
-        }
+        .link-tiktok i { color: #00f2fe; }
+        .link-tiktok i:hover { color: #fe0979; }
 
+        .link-linkedin i { color: #0077B5; }
+        .link-linkedin i:hover { color: #005582; }
 
-        .link-linkedin i {
-            color: #0077B5;
-        }
-        .link-linkedin i:hover {
-            color: #005582;       
-        }
+        .link-github i { color: var(--text-color); }
+        .link-github i:hover { color: #adb5bd; }
 
-    
-        .link-github i {
-            color: #ffffff;
-        }
-        .link-github i:hover {
-            color: #adb5bd;
-        }
-
-       
         .link-letterboxd img {
-            
             filter: invert(53%) sepia(93%) saturate(1754%) hue-rotate(113deg) brightness(97%) contrast(105%);
         }
         .link-letterboxd:hover img {
-
             filter: invert(55%) sepia(81%) saturate(2971%) hue-rotate(12deg) brightness(101%) contrast(101%);
         }
-    </style>
 
+        /* Estilo do Terminal Interativo */
+        .terminal {
+            background-color: var(--terminal-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px;
+            margin-top: 25px;
+            color: #ffffff;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-body {
+            height: 160px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .terminal-output p {
+            margin: 4px 0;
+        }
+
+        .prompt-line {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .prompt-symbol {
+            color: var(--accent-color);
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+        }
+
+        /* Widget Spotify */
+        .spotify-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .spotify-container img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Olá, meu nome é Gabriel, e estou aprendendo sobre programação</h1>
-    <h2>Me siga nas minhas redes sociais</h2>
-    
-    <div class="bloco-redes">
-        <a href="https://www.instagram.com/g_sbriel/" target="_blank" class="link-instagram">
-            <i class="fa-brands fa-instagram"></i>
-        </a>
+    <!-- Botão de Alternar Tema (Dark/Light) -->
+    <button class="theme-toggle-btn" id="themeBtn" title="Alternar Tema">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+
+    <div class="main-card">
+        <h1>Olá, meu nome é Gabriel</h1>
+        <h2>Estou aprendendo sobre programação</h2>
         
-        <a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="link-linkedin">
-            <i class="fa-brands fa-linkedin"></i>
-        </a>
+        <!-- Redes Sociais -->
+        <div class="bloco-redes">
+            <a href="https://www.instagram.com/g_sbriel/" target="_blank" class="link-instagram" title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            
+            <a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="link-linkedin" title="LinkedIn">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
 
-        <a href="https://www.tiktok.com/@.gsbriel?_r=1&_t=ZS-97GtM3Hgq7m" target="_blank" class="link-tiktok">
-            <i class="fa-brands fa-tiktok"></i>
-        </a>
+            <a href="https://www.tiktok.com/@.gsbriel?_r=1&_t=ZS-97GtM3Hgq7m" target="_blank" class="link-tiktok" title="TikTok">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
 
-        <a href="https://github.com/melo2607" target="_blank" class="link-github">
-            <i class="fa-brands fa-github"></i>
-        </a>
+            <a href="https://github.com/melo2607" target="_blank" class="link-github" title="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
 
-        <a href="https://boxd.it/fHchF" target="_blank" class="link-letterboxd">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="Letterboxd">
-        </a>
+            <a href="https://boxd.it/fHchF" target="_blank" class="link-letterboxd" title="Letterboxd">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="Letterboxd">
+            </a>
+        </div>
+
+        <!-- Terminal Interativo -->
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <div class="terminal-output" id="terminalOutput">
+                    <p style="color: var(--accent-color);">Digite 'help' para ver os comandos disponíveis.</p>
+                </div>
+                <div class="prompt-line">
+                    <span class="prompt-symbol">gabriel@dev:~$</span>
+                    <input type="text" id="terminalInput" class="terminal-input" autofocus autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <!-- Widget do Spotify via Lanyard API -->
+        <div class="spotify-container">
+            <img src="https://lanyard.cnrad.dev/api/703766142942052476?theme=dark&hideDisc=true" alt="Spotify Status" />
+        </div>
     </div>
+
+    <script>
+        // --- 1. Lógica do Dark / Light Mode ---
+        const themeBtn = document.getElementById('themeBtn');
+        const icon = themeBtn.querySelector('i');
+
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        });
+
+        // --- 2. Lógica do Terminal Interativo ---
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+        const terminalBody = document.getElementById('terminalBody');
+
+        // Lista de Comandos Padrão
+        const commands = {
+            'about': 'Gabriel | Estudante de Programação focado em desenvolvimento web e novas tecnologias.',
+            'skills': 'Habilidades: HTML5, CSS3, JavaScript, Git & GitHub.',
+            'projects': 'Acesse meus repositórios no GitHub: <a href="https://github.com/melo2607" target="_blank" style="color:var(--accent-color);">github.com/melo2607</a>',
+            'movies': 'Confira o que ando assistindo no meu Letterboxd! 🎬',
+            'clear': 'CLEAR'
+        };
+
+        // Gerador automático do comando 'help'
+        const commandList = Object.keys(commands).map(cmd => `<b style="color: var(--accent-color);">${cmd}</b>`).join(', ');
+        commands['help'] = `Comandos disponíveis: ${commandList}`;
+
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const inputVal = terminalInput.value.trim().toLowerCase();
+                
+                if (inputVal !== '') {
+                    // Adiciona a linha de comando digitada
+                    const userLine = document.createElement('p');
+                    userLine.innerHTML = `<span style="color: var(--accent-color);">gabriel@dev:~$</span> ${terminalInput.value}`;
+                    terminalOutput.appendChild(userLine);
+
+                    // Processa a resposta
+                    if (inputVal === 'clear') {
+                        terminalOutput.innerHTML = '';
+                    } else if (commands[inputVal]) {
+                        const responseLine = document.createElement('p');
+                        responseLine.innerHTML = commands[inputVal];
+                        terminalOutput.appendChild(responseLine);
+                    } else {
+                        const errorLine = document.createElement('p');
+                        errorLine.style.color = '#ff5f56';
+                        errorLine.textContent = `Comando '${inputVal}' não reconhecido. Digite 'help'.`;
+                        terminalOutput.appendChild(errorLine);
+                    }
+
+                    // Limpa o input e rola para o final do terminal
+                    terminalInput.value = '';
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
