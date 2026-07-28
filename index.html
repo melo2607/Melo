@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>gabriel legal</title>
     <style>
+        /* Reset para evitar estouro de tela (overflow) */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         /* Variáveis de cores para o Dark/Light Mode */
         :root {
             --bg-color: #121212;
@@ -41,6 +46,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         /* Botão para mudar Tema */
@@ -76,13 +82,25 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
+        .main-card h1 {
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        .main-card h2 {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
         /* Bloco das Redes Sociais */
         .bloco-redes {
             display: flex;
-            gap: 25px;       
+            gap: 20px;       
             justify-content: center;
             align-items: center; 
             margin: 25px 0;
+            flex-wrap: wrap; /* Permite quebrar linha em telas extremamente estreitas */
         }
 
         .bloco-redes a i, .bloco-redes a img {
@@ -126,6 +144,7 @@
             margin-top: 25px;
             color: #ffffff;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            width: 100%;
         }
 
         .terminal-header {
@@ -152,6 +171,7 @@
 
         .terminal-output p {
             margin: 4px 0;
+            word-break: break-word; /* Evita que o texto quebre a largura do terminal no mobile */
         }
 
         .prompt-line {
@@ -164,6 +184,7 @@
             color: var(--accent-color);
             margin-right: 8px;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .terminal-input {
@@ -191,6 +212,88 @@
             border: 0;
             width: 100%;
             height: 152px;
+        }
+
+        /* ==================== REGRAS DE RESPONSIVIDADE ==================== */
+
+        /* Dispositivos Móveis (smartphones até 600px) */
+        @media (max-width: 600px) {
+            body {
+                padding: 60px 12px 20px 12px; /* Aumentado padding superior para dar espaço ao botão */
+            }
+
+            .theme-toggle-btn {
+                top: 12px;
+                right: 12px;
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .main-card {
+                padding: 20px 15px;
+            }
+
+            .main-card h1 {
+                font-size: 1.5rem;
+            }
+
+            .main-card h2 {
+                font-size: 1rem;
+            }
+
+            .bloco-redes {
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            .bloco-redes a i, .bloco-redes a img {
+                font-size: 32px;
+                width: 32px;
+                height: 32px;
+            }
+
+            .terminal {
+                padding: 10px;
+                margin-top: 20px;
+            }
+
+            .terminal-body {
+                height: 140px;
+                font-size: 13px;
+            }
+
+            .terminal-input {
+                font-size: 13px;
+            }
+
+            .spotify-container {
+                min-height: 80px; /* Reduz altura caso o Spotify renderize em formato compacto */
+            }
+
+            .spotify-container iframe {
+                height: 152px;
+            }
+        }
+
+        /* Telas muito pequenas (smartphones pequenos até 380px) */
+        @media (max-width: 380px) {
+            .bloco-redes {
+                gap: 12px;
+            }
+
+            .bloco-redes a i, .bloco-redes a img {
+                font-size: 28px;
+                width: 28px;
+                height: 28px;
+            }
+
+            .prompt-symbol {
+                font-size: 12px;
+            }
+
+            .terminal-input {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -315,7 +418,5 @@
             }
         });
     </script>
-</body>
-</html>
 </body>
 </html>
