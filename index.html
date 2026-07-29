@@ -572,19 +572,16 @@
         }
 
         // Texto com a lista completa de comandos (usado por 'help' e 'comandos')
-        const textoAjuda = `Todos os comandos disponíveis:<br>
+        const textoAjuda = `Todos os comandos disponíveis ( tente descobrir os comandos secretos também!!):<br>
 <b style="color: var(--accent-color);">about</b> — quem é o Gabriel<br>
 <b style="color: var(--accent-color);">skills</b> — tecnologias que ele usa<br>
 <b style="color: var(--accent-color);">projects</b> — link do GitHub<br>
 <b style="color: var(--accent-color);">movies</b> — link do Letterboxd<br>
 <b style="color: var(--accent-color);">piada</b> (ou <b style="color: var(--accent-color);">joke</b>) — conta uma piada pronta<br>
 <b style="color: var(--accent-color);">curiosidade</b> — um fato rápido de tech/robótica<br>
-<b style="color: var(--accent-color);">whoami</b> — quem está logado<br>
-<b style="color: var(--accent-color);">sudo</b> — tenta virar administrador<br>
+<b style="color: var(--accent-color);">sudo</b> — tente virar administrador<br>
 <b style="color: var(--accent-color);">ls</b> — lista arquivos falsos<br>
 <b style="color: var(--accent-color);">date</b> — data e hora atual<br>
-<b style="color: var(--accent-color);">neofetch</b> — "specs" do terminal<br>
-<b style="color: var(--accent-color);">matrix</b> — easter egg<br>
 <b style="color: var(--accent-color);">clear</b> — limpa a tela<br>
 <b style="color: var(--accent-color);">help</b> (ou <b style="color: var(--accent-color);">comandos</b>) — mostra essa lista<br>
 Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o terminal vai interpretar e responder.`;
@@ -594,7 +591,7 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'clear': 'CLEAR',
             'help': textoAjuda,
             'comandos': textoAjuda,
-            'about': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas, também membro da equipe de robótica FIRST "Mega Harpy".',
+            'about': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
             'skills': 'HTML, CSS, Python, JavaScript e GitHub.',
             'projects': `Confira meus repositórios em <a href="https://github.com/melo2607" target="_blank" style="color: var(--accent-color);">github.com/melo2607</a>.`,
             'movies': `Minhas críticas de filmes está no Letterboxd: <a href="https://boxd.it/fHchF" target="_blank" style="color: var(--accent-color);">boxd.it/fHchF</a>.`,
@@ -611,6 +608,74 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'matrix': 'Siga o coelho branco... 🐇 (ou melhor, siga o robô da Mega Harpy)',
             '67': 'Não começa',
             'bora bill': 'Bora fi do bill',
+            // --- Memes & Internet ---
+            'cansei': 'Já tentou desligar e ligar de novo?',
+            '404': 'Erro 404.',
+            'calma calabreso': 'Calma aí, amostradinho!',
+            'receba': 'Luva vai ser pai tropa!',
+            'o que e o amor': 'Baby don\'t hurt me, don\'t hurt me, no more... ',
+            'paz': 'A paz que você procura está em fechar todas as abas do navegador.',
+
+            // --- Programação & Dev ---
+            'git': 'git commit -m "fiz gambiarra e funcionou, não mexa"',
+            'bug': 'Erro 404 (tbm pq to sem ideia ) ',
+            'hello world': 'Que bonitinho cara.',
+            'python': 'Essa eu sou fluente ',
+            'javascript': 'Vamo faze um site!',
+            'css': 'Tentando centralizar uma div desde 2020.',
+
+            // --- Robótica & FRC ---
+            'frc': 'FIRST Robotics Competition: onde o sono é opcional e a paixão por robôs é gigante! ',
+            'harpy': 'Mega Harpy voando alto nas competições!',
+            'pit': 'Atenção equipe: o robô precisa estar na arena em 2 minutos!',
+            'gracious professionalism': '...HEY ',
+            'autonomo': 'Esperando que os sensores funcionem nos primeiros 15 segundos... ',
+
+            // --- Gamer & Pop ---
+            'ping': 'Pong!  (Latência: 1ms)',
+            'konami': '⬆️ ⬆️ ⬇️ ⬇️ ⬅️ ➡️ ⬅️ ➡️ B A (Vidas infinitas ativadas!)',
+            'halo': 'Finish the fight. ',
+            'portal': 'The cake is a lie. ',
+            'star wars': 'Que a Força esteja com você. ',
+            'batman': 'O batman não tem limites. ',
+
+            // --- Utilitários & Interativos ---
+            'clima': 'Não sei, to no quarto programando. ',
+            'contact': 'Mande uma mensagem no meu GitHub ou LinkedIn!',
+            'contato': 'Mande uma mensagem no meu GitHub ou LinkedIn!',
+            'version': '1.0 porque nao fiz mais nenhum"',
+            'redes': 'GitHub: melo2607 | Letterboxd: boxd.it/fHchF',
+            'moeda': () => Math.random() < 0.5 ? ' Deu CARA!' : ' Deu COROA!',
+            'dado': () => ` Você tirou o número: ${Math.floor(Math.random() * 6) + 1}`,
+
+            // --- Zuaria & Respostas Rápidas ---
+            'oi': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
+            'ola': 'Suave? Digite "help" para ver a lista de comandos.',
+            'tudo bem?': 'Tudo rodando sem erros por aqui! E com você?',
+            'qual o sentido da vida': '42. (De acordo com o Guia do Mochileiro das Galáxias)',
+            'rm -rf': 'Nem tente! O sistema de defesa da Mega Harpy bloqueou esse comando. ',
+            'sudo rm -rf /': 'Tentativa de invasão registrada... Brincadeira, mas não faça isso! ',
+            'ia': 'Não sou o ChatGPT, mas respondo bem rápido!',
+            'piadinha': () => pegarPiadaAleatoria()
+            // === CADEIA 1: A MATRIX ===
+            'segredo': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
+            'coelho': 'Voce encontrou a entrada. Digite "pilula" para fazer sua escolha.',
+            'pilula': 'Escolha seu caminho: digite "pilula azul" ou "pilula vermelha".',
+            'pilula azul': 'Voce acorda na sua cama e acredita no que quiser. Fim da conexao.',
+            'pilula vermelha': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
+
+
+            // === CADEIA 3: JOGO DE TEXTO / LABIRINTO ===
+            'inicio': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
+            'pasta1': 'Caminho sem saida. Arquivo corrompido. Digite "inicio" para voltar.',
+            'pasta2': 'Voce encontrou um arquivo protegido. Digite "descriptografar" para tentar ler.',
+            'descriptografar': 'Acesso liberado! A chave mestra e o comando "melo2607".',
+            'melo2607': 'Voce chegou ao centro do sistema de Gabriel. Parabens por explorar tudo!',
+
+            // === CADEIA 4: O BUG NO CÓDIGO ===
+            'bug': 'Um erro foi encontrado no sistema. Digite "inspect" para investigar.',
+            'inspect': 'Erro na linha 42: funcao indefinida. Digite "fix" para aplicar o patch.',
+            'fix': 'Patch aplicado com sucesso. O sistema voltou ao estado normal.',
         };
 
         // Mostra a lista de comandos já de cara no terminal, sem precisar digitar 'help'
