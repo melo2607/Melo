@@ -530,18 +530,18 @@
 
         // Banco de piadas prontas (respondem na hora, sem precisar da IA)
         const pilhaDePiadas = [
-            'Por que o esqueleto não brigou com ninguém? Porque ele não tinha estômago pra isso. 💀',
-            'O que a impressora disse pro papel? "Ai, você me tira do sério!" 🖨️',
-            'Por que o tomate ficou vermelho? Porque viu a salada se trocar. 🍅',
-            'O que é, o que é: quanto mais se tira, maior fica? O buraco. 🕳️',
-            'Por que os passarinhos voam para o sul no inverno? Porque é longe demais para ir andando. 🐦',
-            'O que o pato falou pra pata? "Vem quá, pata!" 🦆',
-            'Por que a Maria foi correndo pro banco? Porque ela viu o Joaquim (rio) passando. 🏃',
-            'O que um oceano disse pro outro? Nada, eles só deram um "wave". 🌊',
-            'Por que o livro de matemática está sempre triste? Porque ele tem muitos problemas. 📘',
-            'O que é um pontinho verde na parede? Uma ervilha em pé. 🟢',
-            'Por que a galinha atravessou a rua? Para chegar do outro lado (e ninguém nunca fica satisfeito com essa resposta). 🐔',
-            'Toc toc! Quem é? Cadê! Cadê quem? Cadê aquela piada boa que eu ia contar? 🚪',
+            'Por que o esqueleto não brigou com ninguém? Porque ele não tinha estômago pra isso. ',
+            'O que a impressora disse pro papel? "Ai, você me tira do sério!" ',
+            'Por que o tomate ficou vermelho? Porque viu a salada se trocar. ',
+            'O que é, o que é: quanto mais se tira, maior fica? O buraco. ',
+            'Por que os passarinhos voam para o sul no inverno? Porque é longe demais para ir andando. ',
+            'O que o pato falou pra pata? "Vem quá, pata!" ',
+            'Por que a Maria foi correndo pro banco? Porque ela viu o Joaquim (rio) passando. ',
+            'O que um oceano disse pro outro? Nada, eles só deram um "wave". ',
+            'Por que o livro de matemática está sempre triste? Porque ele tem muitos problemas. ',
+            'O que é um pontinho verde na parede? Uma ervilha em pé. ',
+            'Por que a galinha atravessou a rua? Para chegar do outro lado (e ninguém nunca fica satisfeito com essa resposta). ',
+            'Toc toc! Quem é? Cadê! Cadê quem? Cadê aquela piada boa que eu ia contar? ',
         ];
         let ultimaPiadaIndex = -1;
         function pegarPiadaAleatoria() {
@@ -555,11 +555,11 @@
 
         // Banco de curiosidades rápidas sobre programação/robótica
         const pilhaDeCuriosidades = [
-            'O termo "bug" em computação vem de uma mariposa de verdade presa num relé em 1947. 🦋',
-            'O FRC (FIRST Robotics Competition) foi criado em 1992 por Dean Kamen. 🏆',
-            'A primeira versão do Git foi escrita pelo Linus Torvalds em cerca de 2 semanas. ⚡',
-            'PID significa Proporcional, Integral e Derivativo — as 3 partes do controlador. 🎛️',
-            'A primeira linguagem de programação de alto nível foi o Fortran, de 1957. 🖥️',
+            'O termo "bug" em computação vem de uma mariposa de verdade presa num relé em 1947. ',
+            'O FRC (FIRST Robotics Competition) foi criado em 1992 por Dean Kamen. ',
+            'A primeira versão do Git foi escrita pelo Linus Torvalds em cerca de 2 semanas. ',
+            'PID significa Proporcional, Integral e Derivativo — as 3 partes do controlador. ',
+            'A primeira linguagem de programação de alto nível foi o Fortran, de 1957. ',
         ];
         let ultimaCuriosidadeIndex = -1;
         function pegarCuriosidadeAleatoria() {
@@ -601,7 +601,7 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'me conte uma piada': () => pegarPiadaAleatoria(),
             'curiosidade': () => pegarCuriosidadeAleatoria(),
             'whoami': 'gabriel',
-            'sudo': 'Permissão negada: aqui quem manda é o Gabriel. 😎',
+            'sudo': 'Permissão negada: aqui quem manda é o Gabriel. ',
             'ls': 'projetos/  robotica/  filmes.txt  cafe.exe',
             'date': () => new Date().toLocaleString('pt-BR'),
             'neofetch': `<b style="color: var(--accent-color);">gabriel@dev</b><br>------------------<br>OS: Terminal do site<br>Equipe: FRC Mega Harpy<br>Stack: HTML5 / CSS3 / JS<br>Uptime: sempre codando`,
@@ -613,12 +613,11 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             '404': 'Erro 404.',
             'calma calabreso': 'Calma aí, amostradinho!',
             'receba': 'Luva vai ser pai tropa!',
-            'o que e o amor': 'Baby don\'t hurt me, don\'t hurt me, no more... ',
+            'o que e o amor': "Baby don't hurt me, don't hurt me, no more... ",
             'paz': 'A paz que você procura está em fechar todas as abas do navegador.',
 
             // --- Programação & Dev ---
             'git': 'git commit -m "fiz gambiarra e funcionou, não mexa"',
-            'bug': 'Erro 404 (tbm pq to sem ideia ) ',
             'hello world': 'Que bonitinho cara.',
             'python': 'Essa eu sou fluente ',
             'javascript': 'Vamo faze um site!',
@@ -643,7 +642,7 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'clima': 'Não sei, to no quarto programando. ',
             'contact': 'Mande uma mensagem no meu GitHub ou LinkedIn!',
             'contato': 'Mande uma mensagem no meu GitHub ou LinkedIn!',
-            'version': '1.0 porque nao fiz mais nenhum"',
+            'version': '1.0 porque nao fiz mais nenhum',
             'redes': 'GitHub: melo2607 | Letterboxd: boxd.it/fHchF',
             'moeda': () => Math.random() < 0.5 ? ' Deu CARA!' : ' Deu COROA!',
             'dado': () => ` Você tirou o número: ${Math.floor(Math.random() * 6) + 1}`,
@@ -656,14 +655,14 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'rm -rf': 'Nem tente! O sistema de defesa da Mega Harpy bloqueou esse comando. ',
             'sudo rm -rf /': 'Tentativa de invasão registrada... Brincadeira, mas não faça isso! ',
             'ia': 'Não sou o ChatGPT, mas respondo bem rápido!',
-            'piadinha': () => pegarPiadaAleatoria()
+            'piadinha': () => pegarPiadaAleatoria(),
+
             // === CADEIA 1: A MATRIX ===
             'segredo': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
             'coelho': 'Voce encontrou a entrada. Digite "pilula" para fazer sua escolha.',
             'pilula': 'Escolha seu caminho: digite "pilula azul" ou "pilula vermelha".',
             'pilula azul': 'Voce acorda na sua cama e acredita no que quiser. Fim da conexao.',
             'pilula vermelha': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
-
 
             // === CADEIA 3: JOGO DE TEXTO / LABIRINTO ===
             'inicio': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
