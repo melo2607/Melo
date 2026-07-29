@@ -314,6 +314,61 @@
             height: 152px;
         }
  
+        /* ==================== SUSTO / JUMPSCARE ==================== */
+        @keyframes sustoShake {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-10px, 6px); }
+            20% { transform: translate(9px, -7px); }
+            30% { transform: translate(-8px, 9px); }
+            40% { transform: translate(7px, -9px); }
+            50% { transform: translate(-9px, -6px); }
+            60% { transform: translate(9px, 7px); }
+            70% { transform: translate(-7px, -9px); }
+            80% { transform: translate(7px, 9px); }
+            90% { transform: translate(-4px, 4px); }
+        }
+
+        body.susto-shake {
+            animation: sustoShake 0.5s linear;
+        }
+
+        .susto-overlay {
+            position: fixed;
+            inset: 0;
+            background: #8a0000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .susto-overlay.susto-ativo {
+            display: flex;
+            animation: sustoFlash 0.6s ease-out forwards;
+        }
+
+        @keyframes sustoFlash {
+            0% { opacity: 0; }
+            8% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .susto-face {
+            font-size: 32vw;
+            line-height: 1;
+            filter: drop-shadow(0 0 40px #000);
+            animation: sustoPop 0.6s ease-out;
+        }
+
+        @keyframes sustoPop {
+            0% { transform: scale(0.3); }
+            15% { transform: scale(1.5); }
+            30% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
         /* ==================== REGRAS DE RESPONSIVIDADE ==================== */
  
         /* Dispositivos Móveis (smartphones até 600px) */
@@ -399,6 +454,11 @@
 </head>
 <body>
  
+    <!-- Overlay do susto/jumpscare (fica escondido até o comando ser digitado) -->
+<div class="susto-overlay" id="sustoOverlay">
+<span class="susto-face">👹</span>
+</div>
+
     <!-- Botão de Alternar Tema (Dark/Light) -->
 <button class="theme-toggle-btn" id="themeBtn" title="Alternar Tema">
 <i class="fa-solid fa-moon"></i>
@@ -519,6 +579,41 @@
             }
         });
  
+        // --- Efeito de susto / jumpscare ---
+        const sustoOverlay = document.getElementById('sustoOverlay');
+
+        function dispararSusto() {
+            // reinicia a animação do overlay (caso o comando seja usado várias vezes seguidas)
+            sustoOverlay.classList.remove('susto-ativo');
+            document.body.classList.remove('susto-shake');
+            void sustoOverlay.offsetWidth; // força reflow para reiniciar as animações CSS
+
+            sustoOverlay.classList.add('susto-ativo');
+            document.body.classList.add('susto-shake');
+
+            // som curto e agudo gerado na hora, sem precisar de arquivo externo
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(1000, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.5);
+                gain.gain.setValueAtTime(0.35, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+                osc.connect(gain).connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.5);
+            } catch (err) {
+                // se o navegador bloquear áudio, o susto visual continua funcionando normalmente
+            }
+
+            setTimeout(() => {
+                sustoOverlay.classList.remove('susto-ativo');
+                document.body.classList.remove('susto-shake');
+            }, 650);
+        }
+
         // --- 2. Lógica do Terminal Interativo (agora com IA) ---
         const terminalInput = document.getElementById('terminalInput');
         const terminalOutput = document.getElementById('terminalOutput');
@@ -532,7 +627,13 @@
         // (só um refresh da página reseta isso), mas sem deixar isso evidente
         // — os comandos da cadeia simplesmente caem no fluxo normal da IA.
         let matrixEncerrada = false;
-        const comandosMatrix = ['segredo', 'coelho', 'pilula', 'pilula azul', 'pilula vermelha'];
+        const comandosMatrix = [
+            'segredo', 'secret',
+            'coelho', 'rabbit hole',
+            'pilula', 'pill',
+            'pilula azul', 'blue pill',
+            'pilula vermelha', 'red pill'
+        ];
  
         // Banco de piadas prontas (respondem na hora, sem precisar da IA)
         const pilhaDePiadas = [
@@ -665,23 +766,121 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
  
             // === CADEIA 1: A MATRIX ===
             'segredo': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
+            'secret': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
             'coelho': 'Voce encontrou a entrada. Digite "pilula" para fazer sua escolha.',
+            'rabbit hole': 'Voce encontrou a entrada. Digite "pilula" para fazer sua escolha.',
             'pilula': 'Escolha seu caminho: digite "pilula azul" ou "pilula vermelha".',
+            'pill': 'Escolha seu caminho: digite "pilula azul" ou "pilula vermelha".',
             'pilula vermelha': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
+            'red pill': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
  
             // === CADEIA 3: JOGO DE TEXTO / LABIRINTO ===
             'inicio': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
+            'start': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
+            'home': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
             'pasta1': 'Caminho sem saida. Arquivo corrompido. Digite "inicio" para voltar.',
+            'folder1': 'Caminho sem saida. Arquivo corrompido. Digite "inicio" para voltar.',
             'pasta2': 'Voce encontrou um arquivo protegido. Digite "descriptografar" para tentar ler.',
+            'folder2': 'Voce encontrou um arquivo protegido. Digite "descriptografar" para tentar ler.',
             'descriptografar': 'Acesso liberado! A chave mestra e o comando "melo2607".',
+            'decrypt': 'Acesso liberado! A chave mestra e o comando "melo2607".',
             'melo2607': 'Voce chegou ao centro do sistema de Gabriel. Parabens por explorar tudo!',
  
             // === CADEIA 4: O BUG NO CÓDIGO ===
             'bug': 'Um erro foi encontrado no sistema. Digite "inspect" para investigar.',
             'inspect': 'Erro na linha 42: funcao indefinida. Digite "fix" para aplicar o patch.',
             'fix': 'Patch aplicado com sucesso. O sistema voltou ao estado normal.',
+ 
+            // --- Mais comandos "de sistema" (unix/windows) ---
+            'pwd': '/home/gabriel',
+            'cd': 'bash: cd: comando desabilitado neste terminal',
+            'mkdir': 'Pasta criada (mentira, isso e so um site).',
+            'cat': 'Use "ls" para ver os arquivos primeiro.',
+            'echo': 'Ecooo... ecooo... ecooo...',
+            'man': 'Nao ha manual, so vibe.',
+            'uptime': () => new Date().toLocaleString('pt-BR'),
+            'htop': 'CPU: 4% | RAM: café/8 | Processos: pensando em projetos novos',
+            'traceroute': 'Todos os caminhos levam ao GitHub: github.com/melo2607',
+            'ifconfig': 'Conectado. Sinal forte. Sem previsao de queda.',
+            'id': 'uid=1(gabriel) gid=1(devs) grupos=1(devs),2(robotica)',
+            'uname': 'GabrielOS v1.0 (baseado em café e HTML)',
+            'kernel': 'GabrielOS Kernel 1.0 — estavel, na maioria das vezes.',
+            'root': 'Acesso root negado. Aqui so o Gabriel manda.',
+            'admin': 'Acesso root negado. Aqui so o Gabriel manda.',
+            'hack': 'Iniciando hack... brincadeira, aqui e tudo de boa.',
+            'hackear': 'Iniciando hack... brincadeira, aqui e tudo de boa.',
+            'exit': 'Nao ha como sair, so fechar a aba mesmo. ',
+            'sair': 'Nao ha como sair, so fechar a aba mesmo. ',
+            'quit': 'Nao ha como sair, so fechar a aba mesmo. ',
+            'cls': 'CLEAR',
+ 
+            // --- Sobre o Gabriel, em ingles e sem acento ---
+            'quem e voce': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
+            'who are you': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
+            'o que voce faz': 'Estudo desenvolvimento web e participo da equipe de robotica Mega Harpy.',
+            'what do you do': 'Estudo desenvolvimento web e participo da equipe de robotica Mega Harpy.',
+            'idade': 'Prefiro nao revelar isso num terminal publico ',
+            'age': 'Prefiro nao revelar isso num terminal publico ',
+            'cidade': 'Indaiatuba, SP, Brasil.',
+            'city': 'Indaiatuba, SP, Brasil.',
+            'onde voce mora': 'Indaiatuba, SP, Brasil.',
+            'where do you live': 'Indaiatuba, SP, Brasil.',
+            'curso': 'Análise e Desenvolvimento de Sistemas.',
+            'course': 'Análise e Desenvolvimento de Sistemas.',
+            'escola': 'Estudo e também faço parte da equipe de robótica FRC Mega Harpy.',
+            'school': 'Estudo e também faço parte da equipe de robótica FRC Mega Harpy.',
+            'hobby': 'Programar, assistir filmes e mexer com robótica.',
+            'hobbies': 'Programar, assistir filmes e mexer com robótica.',
+            'cafe': 'Combustível oficial de todo programador. ',
+            'coffee': 'Combustível oficial de todo programador. ',
+ 
+            // --- Redes sociais como comando direto ---
+            'instagram': `Me siga no Instagram: <a href="https://www.instagram.com/g_sbriel/" target="_blank" style="color: var(--accent-color);">@g_sbriel</a>.`,
+            'tiktok': `Me siga no TikTok: <a href="https://www.tiktok.com/@.gsbriel" target="_blank" style="color: var(--accent-color);">@g.sbriel</a>.`,
+            'linkedin': `Meu LinkedIn: <a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385" target="_blank" style="color: var(--accent-color);">Gabriel Melo Silva</a>.`,
+            'github': `Confira meus repositórios em <a href="https://github.com/melo2607" target="_blank" style="color: var(--accent-color);">github.com/melo2607</a>.`,
+            'letterboxd': `Minhas críticas de filmes está no Letterboxd: <a href="https://boxd.it/fHchF" target="_blank" style="color: var(--accent-color);">boxd.it/fHchF</a>.`,
+            'spotify': 'Da uma olhada na playlist tocando ali embaixo do terminal ',
+            'musica': 'Da uma olhada na playlist tocando ali embaixo do terminal ',
+            'music': 'Da uma olhada na playlist tocando ali embaixo do terminal ',
+ 
+            // --- Saudações e despedidas ---
+            'hello': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
+            'hi': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
+            'hey': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
+            'bom dia': 'Bom dia! Café já tá on. ',
+            'good morning': 'Bom dia! Café já tá on. ',
+            'boa tarde': 'Boa tarde! Codando ou só de passagem?',
+            'good afternoon': 'Boa tarde! Codando ou só de passagem?',
+            'boa noite': 'Boa noite! Hora perfeita pra revisar código. ',
+            'good night': 'Boa noite! Hora perfeita pra revisar código. ',
+            'tchau': 'Até mais! Valeu por passar aqui. ',
+            'bye': 'Até mais! Valeu por passar aqui. ',
+            'adeus': 'Até mais! Valeu por passar aqui. ',
+            'obrigado': 'Disponha! ',
+            'obrigada': 'Disponha! ',
+            'thanks': 'Disponha! ',
+            'thank you': 'Disponha! ',
+            'valeu': 'Nós que agradecemos! ',
+
+            // --- Susto / jumpscare ---
+            'susto': () => { dispararSusto(); return 'Relaxa, era só brincadeira... 👀'; },
+            'jumpscare': () => { dispararSusto(); return 'Relaxa, era só brincadeira... 👀'; },
         };
  
+        // Remove acentos de uma string (ex: "não" -> "nao", "está" -> "esta")
+        function removerAcentos(str) {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        // Mapa auxiliar: versão sem acento de cada comando -> chave real em systemCommands.
+        // Assim, se a pessoa digitar sem acento (ou já em inglês, já que várias
+        // versões em inglês também foram cadastradas acima), o comando ainda é reconhecido.
+        const systemCommandsNormalizados = {};
+        Object.keys(systemCommands).forEach(chave => {
+            systemCommandsNormalizados[removerAcentos(chave)] = chave;
+        });
+
         // Mostra a lista de comandos já de cara no terminal, sem precisar digitar 'help'
         document.getElementById('listaComandosInicial').innerHTML = textoAjuda;
  
@@ -756,17 +955,23 @@ Regras de resposta:
                     appendLine(`<span style="color: var(--accent-color);">gabriel@dev:~$</span> ${rawVal}`);
                     terminalInput.value = '';
  
-                    if (inputVal === 'clear') {
+                    // Resolve o comando digitado ainda que venha sem acento ou em inglês
+                    const inputSemAcento = removerAcentos(inputVal);
+                    const chaveResolvida = systemCommandsNormalizados[inputSemAcento];
+                    const ehComandoMatrix = chaveResolvida && comandosMatrix.includes(chaveResolvida);
+                    const ehPilulaAzul = inputSemAcento === 'pilula azul' || inputSemAcento === 'blue pill';
+
+                    if (inputVal === 'clear' || inputSemAcento === 'cls') {
                         terminalOutput.innerHTML = '';
                         conversationHistory = [];
-                    } else if (inputVal === 'pilula azul' && !matrixEncerrada) {
+                    } else if (ehPilulaAzul && !matrixEncerrada) {
                         // Escolheu a pilula azul: o terminal "esquece" tudo (igual ao clear)
                         // e a brincadeira da Matrix fica bloqueada até a página ser recarregada.
                         terminalOutput.innerHTML = '';
                         conversationHistory = [];
                         matrixEncerrada = true;
-                    } else if (systemCommands.hasOwnProperty(inputVal) && !(matrixEncerrada && comandosMatrix.includes(inputVal))) {
-                        const resposta = systemCommands[inputVal];
+                    } else if (chaveResolvida !== undefined && !(matrixEncerrada && ehComandoMatrix)) {
+                        const resposta = systemCommands[chaveResolvida];
                         appendLine(typeof resposta === 'function' ? resposta() : resposta);
                     } else {
                         terminalInput.disabled = true;
