@@ -133,6 +133,89 @@
             filter: invert(55%) sepia(81%) saturate(2971%) hue-rotate(12deg) brightness(101%) contrast(101%);
         }
 
+        /* Preview das Redes Sociais (aparece ao passar o mouse) */
+        .rede-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .social-preview {
+            position: absolute;
+            bottom: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            width: 210px;
+            background: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: left;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Setinha apontando para o ícone */
+        .social-preview::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 7px;
+            border-style: solid;
+            border-color: var(--container-bg) transparent transparent transparent;
+        }
+
+        .rede-item:hover .social-preview,
+        .rede-item:focus-within .social-preview {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .social-preview-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .social-preview-header i {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .social-preview-handle {
+            margin: 6px 0 4px 0;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .social-preview-desc {
+            margin: 0;
+            font-size: 0.8rem;
+            opacity: 0.85;
+            line-height: 1.35;
+        }
+
+        /* Em telas pequenas/touch, o hover é impreciso: some para não atrapalhar o toque no link */
+        @media (max-width: 600px) {
+            .social-preview {
+                display: none;
+            }
+        }
+
         /* Estilo do Terminal Interativo */
         .terminal {
             background-color: var(--terminal-bg);
@@ -327,25 +410,75 @@
         
         <!-- Redes Sociais -->
         <div class="bloco-redes">
-            <a href="https://www.instagram.com/g_sbriel/" target="_blank" class="link-instagram" title="Instagram">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-            
-            <a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="link-linkedin" title="LinkedIn">
-                <i class="fa-brands fa-linkedin"></i>
-            </a>
+            <div class="rede-item">
+                <a href="https://www.instagram.com/g_sbriel/" target="_blank" class="link-instagram" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <div class="social-preview">
+                    <div class="social-preview-header">
+                        <i class="fa-brands fa-instagram" style="color:#E1306C;"></i>
+                        <span>Instagram</span>
+                    </div>
+                    <p class="social-preview-handle">@g_sbriel</p>
+                    <p class="social-preview-desc">Fotos, dia a dia e bastidores fora do código.</p>
+                </div>
+            </div>
 
-            <a href="https://www.tiktok.com/@.gsbriel?_r=1&_t=ZS-97GtM3Hgq7m" target="_blank" class="link-tiktok" title="TikTok">
-                <i class="fa-brands fa-tiktok"></i>
-            </a>
+            <div class="rede-item">
+                <a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="link-linkedin" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <div class="social-preview">
+                    <div class="social-preview-header">
+                        <i class="fa-brands fa-linkedin" style="color:#0077B5;"></i>
+                        <span>LinkedIn</span>
+                    </div>
+                    <p class="social-preview-handle">Gabriel Melo Silva</p>
+                    <p class="social-preview-desc">Trajetória, projetos e robótica FRC Mega Harpy.</p>
+                </div>
+            </div>
 
-            <a href="https://github.com/melo2607" target="_blank" class="link-github" title="GitHub">
-                <i class="fa-brands fa-github"></i>
-            </a>
+            <div class="rede-item">
+                <a href="https://www.tiktok.com/@.gsbriel?_r=1&_t=ZS-97GtM3Hgq7m" target="_blank" class="link-tiktok" title="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <div class="social-preview">
+                    <div class="social-preview-header">
+                        <i class="fa-brands fa-tiktok" style="color:#00f2fe;"></i>
+                        <span>TikTok</span>
+                    </div>
+                    <p class="social-preview-handle">@.gsbriel</p>
+                    <p class="social-preview-desc">Vídeos curtos e momentos aleatórios.</p>
+                </div>
+            </div>
 
-            <a href="https://boxd.it/fHchF" target="_blank" class="link-letterboxd" title="Letterboxd">
-                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="Letterboxd">
-            </a>
+            <div class="rede-item">
+                <a href="https://github.com/melo2607" target="_blank" class="link-github" title="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <div class="social-preview">
+                    <div class="social-preview-header">
+                        <i class="fa-brands fa-github"></i>
+                        <span>GitHub</span>
+                    </div>
+                    <p class="social-preview-handle">melo2607</p>
+                    <p class="social-preview-desc">Projetos pessoais, como o Karaokê do Gabrielzinho.</p>
+                </div>
+            </div>
+
+            <div class="rede-item">
+                <a href="https://boxd.it/fHchF" target="_blank" class="link-letterboxd" title="Letterboxd">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="Letterboxd">
+                </a>
+                <div class="social-preview">
+                    <div class="social-preview-header">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="Letterboxd" style="width:18px;height:18px;filter:invert(53%) sepia(93%) saturate(1754%) hue-rotate(113deg) brightness(97%) contrast(105%);">
+                        <span>Letterboxd</span>
+                    </div>
+                    <p class="social-preview-handle">gabiruds</p>
+                    <p class="social-preview-desc">Diário e avaliações de filmes assistidos.</p>
+                </div>
+            </div>
         </div>
 
         <!-- Terminal Interativo -->
@@ -357,7 +490,8 @@
             </div>
             <div class="terminal-body" id="terminalBody">
                 <div class="terminal-output" id="terminalOutput">
-                    <p style="color: var(--accent-color);">Digite qualquer comando. Ex: 'help', 'about', 'me conte uma piada', 'explique recursão'...</p>
+                    <p style="color: var(--accent-color);">Bem-vindo! Digite qualquer pergunta ou comando abaixo. Comandos disponíveis:</p>
+                    <p id="listaComandosInicial"></p>
                 </div>
                 <div class="prompt-line">
                     <span class="prompt-symbol">gabriel@dev:~$</span>
@@ -394,11 +528,91 @@
         // Histórico de conversa enviado à IA (mantém contexto do terminal)
         let conversationHistory = [];
 
+        // Banco de piadas prontas (respondem na hora, sem precisar da IA)
+        const pilhaDePiadas = [
+            'Por que o esqueleto não brigou com ninguém? Porque ele não tinha estômago pra isso. 💀',
+            'O que a impressora disse pro papel? "Ai, você me tira do sério!" 🖨️',
+            'Por que o tomate ficou vermelho? Porque viu a salada se trocar. 🍅',
+            'O que é, o que é: quanto mais se tira, maior fica? O buraco. 🕳️',
+            'Por que os passarinhos voam para o sul no inverno? Porque é longe demais para ir andando. 🐦',
+            'O que o pato falou pra pata? "Vem quá, pata!" 🦆',
+            'Por que a Maria foi correndo pro banco? Porque ela viu o Joaquim (rio) passando. 🏃',
+            'O que um oceano disse pro outro? Nada, eles só deram um "wave". 🌊',
+            'Por que o livro de matemática está sempre triste? Porque ele tem muitos problemas. 📘',
+            'O que é um pontinho verde na parede? Uma ervilha em pé. 🟢',
+            'Por que a galinha atravessou a rua? Para chegar do outro lado (e ninguém nunca fica satisfeito com essa resposta). 🐔',
+            'Toc toc! Quem é? Cadê! Cadê quem? Cadê aquela piada boa que eu ia contar? 🚪',
+        ];
+        let ultimaPiadaIndex = -1;
+        function pegarPiadaAleatoria() {
+            let i;
+            do {
+                i = Math.floor(Math.random() * pilhaDePiadas.length);
+            } while (i === ultimaPiadaIndex && pilhaDePiadas.length > 1);
+            ultimaPiadaIndex = i;
+            return pilhaDePiadas[i];
+        }
+
+        // Banco de curiosidades rápidas sobre programação/robótica
+        const pilhaDeCuriosidades = [
+            'O termo "bug" em computação vem de uma mariposa de verdade presa num relé em 1947. 🦋',
+            'O FRC (FIRST Robotics Competition) foi criado em 1992 por Dean Kamen. 🏆',
+            'A primeira versão do Git foi escrita pelo Linus Torvalds em cerca de 2 semanas. ⚡',
+            'PID significa Proporcional, Integral e Derivativo — as 3 partes do controlador. 🎛️',
+            'A primeira linguagem de programação de alto nível foi o Fortran, de 1957. 🖥️',
+        ];
+        let ultimaCuriosidadeIndex = -1;
+        function pegarCuriosidadeAleatoria() {
+            let i;
+            do {
+                i = Math.floor(Math.random() * pilhaDeCuriosidades.length);
+            } while (i === ultimaCuriosidadeIndex && pilhaDeCuriosidades.length > 1);
+            ultimaCuriosidadeIndex = i;
+            return pilhaDeCuriosidades[i];
+        }
+
+        // Texto com a lista completa de comandos (usado por 'help' e 'comandos')
+        const textoAjuda = `Todos os comandos disponíveis:<br>
+<b style="color: var(--accent-color);">about</b> — quem é o Gabriel<br>
+<b style="color: var(--accent-color);">skills</b> — tecnologias que ele usa<br>
+<b style="color: var(--accent-color);">projects</b> — link do GitHub<br>
+<b style="color: var(--accent-color);">movies</b> — link do Letterboxd<br>
+<b style="color: var(--accent-color);">piada</b> (ou <b style="color: var(--accent-color);">joke</b>) — conta uma piada pronta<br>
+<b style="color: var(--accent-color);">curiosidade</b> — um fato rápido de tech/robótica<br>
+<b style="color: var(--accent-color);">whoami</b> — quem está logado<br>
+<b style="color: var(--accent-color);">sudo</b> — tenta virar administrador<br>
+<b style="color: var(--accent-color);">ls</b> — lista arquivos falsos<br>
+<b style="color: var(--accent-color);">date</b> — data e hora atual<br>
+<b style="color: var(--accent-color);">neofetch</b> — "specs" do terminal<br>
+<b style="color: var(--accent-color);">matrix</b> — easter egg<br>
+<b style="color: var(--accent-color);">clear</b> — limpa a tela<br>
+<b style="color: var(--accent-color);">help</b> (ou <b style="color: var(--accent-color);">comandos</b>) — mostra essa lista<br>
+Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o terminal vai interpretar e responder.`;
+
         // Comandos "de sistema" que continuam instantâneos e não passam pela IA
         const systemCommands = {
             'clear': 'CLEAR',
-            'help': `Comandos rápidos: <b style="color: var(--accent-color);">about</b>, <b style="color: var(--accent-color);">skills</b>, <b style="color: var(--accent-color);">projects</b>, <b style="color: var(--accent-color);">movies</b>, <b style="color: var(--accent-color);">clear</b>.<br>Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o terminal vai interpretar e responder.`
+            'help': textoAjuda,
+            'comandos': textoAjuda,
+            'about': 'Gabriel | Estudante de Programação focado em desenvolvimento web e novas tecnologias, também membro da equipe de robótica FIRST "Mega Harpy".',
+            'skills': 'HTML5, CSS3, JavaScript, Git &amp; GitHub.',
+            'projects': `Confira meus repositórios em <a href="https://github.com/melo2607" target="_blank" style="color: var(--accent-color);">github.com/melo2607</a>.`,
+            'movies': `Meu diário de filmes está no Letterboxd: <a href="https://boxd.it/fHchF" target="_blank" style="color: var(--accent-color);">boxd.it/fHchF</a>.`,
+            'piada': () => pegarPiadaAleatoria(),
+            'joke': () => pegarPiadaAleatoria(),
+            'conta uma piada': () => pegarPiadaAleatoria(),
+            'me conte uma piada': () => pegarPiadaAleatoria(),
+            'curiosidade': () => pegarCuriosidadeAleatoria(),
+            'whoami': 'gabriel',
+            'sudo': 'Permissão negada: aqui quem manda é o Gabriel. 😎',
+            'ls': 'projetos/  robotica/  filmes.txt  cafe.exe',
+            'date': () => new Date().toLocaleString('pt-BR'),
+            'neofetch': `<b style="color: var(--accent-color);">gabriel@dev</b><br>------------------<br>OS: Terminal do site<br>Equipe: FRC Mega Harpy<br>Stack: HTML5 / CSS3 / JS<br>Uptime: sempre codando`,
+            'matrix': 'Siga o coelho branco... 🐇 (ou melhor, siga o robô da Mega Harpy)',
         };
+
+        // Mostra a lista de comandos já de cara no terminal, sem precisar digitar 'help'
+        document.getElementById('listaComandosInicial').innerHTML = textoAjuda;
 
         function appendLine(html, color) {
             const p = document.createElement('p');
@@ -474,8 +688,9 @@ Regras de resposta:
                     if (inputVal === 'clear') {
                         terminalOutput.innerHTML = '';
                         conversationHistory = [];
-                    } else if (systemCommands[inputVal]) {
-                        appendLine(systemCommands[inputVal]);
+                    } else if (systemCommands.hasOwnProperty(inputVal)) {
+                        const resposta = systemCommands[inputVal];
+                        appendLine(typeof resposta === 'function' ? resposta() : resposta);
                     } else {
                         terminalInput.disabled = true;
                         askAI(rawVal);
