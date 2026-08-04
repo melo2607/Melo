@@ -731,8 +731,7 @@
 <b style="color: var(--accent-color);">ls</b> — lista arquivos falsos<br>
 <b style="color: var(--accent-color);">date</b> — data e hora atual<br>
 <b style="color: var(--accent-color);">clear</b> — limpa a tela<br>
-<b style="color: var(--accent-color);">help</b> (ou <b style="color: var(--accent-color);">comandos</b>) — mostra essa lista<br>
-Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o terminal vai interpretar e responder.`;
+<b style="color: var(--accent-color);">help</b> (ou <b style="color: var(--accent-color);">comandos</b>) — mostra essa lista<br>;
  
         // Comandos "de sistema" que continuam instantâneos e não passam pela IA
         const systemCommands = {
@@ -749,7 +748,7 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'me conte uma piada': () => pegarPiadaAleatoria(),
             'curiosidade': () => pegarCuriosidadeAleatoria(),
             'whoami': 'gabriel',
-            'sudo': 'Permissão negada: aqui quem manda é o Gabriel. ',
+            'sudo': 'Permissão negada: aqui quem manda sou eu. ',
             'ls': 'projetos/  robotica/  filmes.txt  cafe.exe',
             'date': () => new Date().toLocaleString('pt-BR'),
             'neofetch': `<b style="color: var(--accent-color);">gabriel@dev</b><br>------------------<br>OS: Terminal do site<br>Equipe: FRC Mega Harpy<br>Stack: HTML5 / CSS3 / JS<br>Uptime: sempre codando`,
@@ -765,6 +764,10 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'Pitoco': 'Meu grilinho gordo',
             '67': 'Não começa',
             'bora bill': 'Bora fi do bill',
+            'a': 'b',
+            'zap': 'não fale o nome do monstro... vai que ele aparece...',
+            'comunismo': 'gosto',
+                
             // --- Memes & Internet ---
             'cansei': 'Já tentou desligar e ligar de novo?',
             '404': 'Erro 404.',
@@ -847,18 +850,18 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'mkdir': 'Pasta criada (mentira, isso e so um site).',
             'cat': 'Use "ls" para ver os arquivos primeiro.',
             'echo': 'Ecooo... ecooo... ecooo...',
-            'man': 'Nao ha manual, so vibe.',
+            'man': 'Nao ha manual.',
             'uptime': () => new Date().toLocaleString('pt-BR'),
-            'htop': 'CPU: 4% | RAM: café/8 | Processos: pensando em projetos novos',
+            'htop': 'CPU: 4% | Processos: pensando em projetos novos',
             'traceroute': 'Todos os caminhos levam ao GitHub: github.com/melo2607',
-            'ifconfig': 'Conectado. Sinal forte. Sem previsao de queda.',
+            'ifconfig': 'Conectado. Sinal forte. jaja cai.',
             'id': 'uid=1(gabriel) gid=1(devs) grupos=1(devs),2(robotica)',
-            'uname': 'GabrielOS v1.0 (baseado em café e HTML)',
+            'uname': 'GabrielOS v1.0',
             'kernel': 'GabrielOS Kernel 1.0 — estavel, na maioria das vezes.',
-            'root': 'Acesso root negado. Aqui so o Gabriel manda.',
-            'admin': 'Acesso root negado. Aqui so o Gabriel manda.',
-            'hack': 'Iniciando hack... brincadeira, aqui e tudo de boa.',
-            'hackear': 'Iniciando hack... brincadeira, aqui e tudo de boa.',
+            'root': 'Acesso root negado. Aqui so eu mando.',
+            'admin': 'Acesso root negado. Aqui so eu mando.',
+            'hack': 'ta se achando ne.',
+            'hackear': 'coitado.',
             'exit': 'Nao ha como sair, so fechar a aba mesmo. ',
             'sair': 'Nao ha como sair, so fechar a aba mesmo. ',
             'quit': 'Nao ha como sair, so fechar a aba mesmo. ',
@@ -871,18 +874,12 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'what do you do': 'Estudo desenvolvimento web e participo da equipe de robotica Mega Harpy.',
             'idade': 'Prefiro nao revelar isso num terminal publico ',
             'age': 'Prefiro nao revelar isso num terminal publico ',
-            'cidade': 'Indaiatuba, SP, Brasil.',
-            'city': 'Indaiatuba, SP, Brasil.',
-            'onde voce mora': 'Indaiatuba, SP, Brasil.',
-            'where do you live': 'Indaiatuba, SP, Brasil.',
             'curso': 'Análise e Desenvolvimento de Sistemas.',
             'course': 'Análise e Desenvolvimento de Sistemas.',
             'escola': 'Estudo e também faço parte da equipe de robótica FRC Mega Harpy.',
             'school': 'Estudo e também faço parte da equipe de robótica FRC Mega Harpy.',
             'hobby': 'Programar, assistir filmes e mexer com robótica.',
             'hobbies': 'Programar, assistir filmes e mexer com robótica.',
-            'cafe': 'Combustível oficial de todo programador. ',
-            'coffee': 'Combustível oficial de todo programador. ',
  
             // --- Redes sociais como comando direto ---
             'instagram': `Me siga no Instagram: <a href="https://www.instagram.com/g_sbriel/" target="_blank" style="color: var(--accent-color);">@g_sbriel</a>.`,
@@ -898,8 +895,8 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'hello': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
             'hi': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
             'hey': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
-            'bom dia': 'Bom dia! Café já tá on. ',
-            'good morning': 'Bom dia! Café já tá on. ',
+            'bom dia': 'Bom dia! ',
+            'good morning': 'Bom dia! ',
             'boa tarde': 'Boa tarde! Codando ou só de passagem?',
             'good afternoon': 'Boa tarde! Codando ou só de passagem?',
             'boa noite': 'Boa noite! Hora perfeita pra revisar código. ',
@@ -911,7 +908,7 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'obrigada': 'Disponha! ',
             'thanks': 'Disponha! ',
             'thank you': 'Disponha! ',
-            'valeu': 'Nós que agradecemos! ',
+            'valeu': 'Eu que agradeço! ',
 
             // --- Susto / jumpscare ---
             'susto': () => { dispararSusto(); return 'Relaxa, era só brincadeira... 👀'; },
