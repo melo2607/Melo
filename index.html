@@ -228,6 +228,7 @@
             color: #ffffff;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
             width: 100%;
+            position: relative;
         }
  
         .terminal-header {
@@ -312,6 +313,42 @@
             border: 0;
             width: 100%;
             height: 152px;
+        }
+
+        /* ==================== MINI-GAME (estilo dino do Google) ==================== */
+        .mini-game-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: var(--terminal-bg);
+            border-radius: 6px;
+            z-index: 20;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+        }
+
+        .mini-game-overlay.ativo {
+            display: flex;
+        }
+
+        #miniGameCanvas {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            background: var(--terminal-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            touch-action: manipulation;
+        }
+
+        .mini-game-info {
+            margin: 6px 0 0 0;
+            font-size: 12px;
+            color: var(--accent-color);
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
         }
  
         /* ==================== SUSTO / JUMPSCARE ==================== */
@@ -557,6 +594,10 @@
 <input type="text" id="terminalInput" class="terminal-input" autofocus autocomplete="off">
 </div>
 </div>
+<div class="mini-game-overlay" id="miniGameOverlay">
+<canvas id="miniGameCanvas" width="600" height="150"></canvas>
+<p class="mini-game-info" id="miniGameInfo">Espaço/toque para pular · Esc para sair</p>
+</div>
 </div>
  
         <!-- Widget do Spotify Corrigido -->
@@ -713,6 +754,15 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'date': () => new Date().toLocaleString('pt-BR'),
             'neofetch': `<b style="color: var(--accent-color);">gabriel@dev</b><br>------------------<br>OS: Terminal do site<br>Equipe: FRC Mega Harpy<br>Stack: HTML5 / CSS3 / JS<br>Uptime: sempre codando`,
             'matrix': 'Siga o coelho branco... ',
+            'gabriel': 'Esse sou eu',
+            'Aline': 'Essa é minha mamãe',
+            'aline': 'E eu chamei... chamei Aline, estou aqui! e eu chorei... chorei um mar só por ti!',
+            'Ademir': 'Esse é meu papai',
+            'ademir': 'o adm',
+            'Alicia': 'a minha maior fã ( vulgo minha irmã )',
+            'alicia': 'alicia, vai limpa o coco do pitoco',
+            'pitoco': 'meu nego preto',
+            'Pitoco': 'Meu grilinho gordo',
             '67': 'Não começa',
             'bora bill': 'Bora fi do bill',
             // --- Memes & Internet ---
@@ -867,6 +917,238 @@ Além disso, digite qualquer pergunta, pedido ou comando em texto livre — o te
             'susto': () => { dispararSusto(); return 'Relaxa, era só brincadeira... 👀'; },
             'jumpscare': () => { dispararSusto(); return 'Relaxa, era só brincadeira... 👀'; },
         };
+
+        // --- Mini-game estilo "dino do Google", ativado ao digitar "Gabriel" (com G maiúsculo) ---
+        const terminalEl = document.querySelector('.terminal');
+        const miniGameOverlay = document.getElementById('miniGameOverlay');
+        const miniGameCanvas = document.getElementById('miniGameCanvas');
+        const miniGameInfo = document.getElementById('miniGameInfo');
+        const miniGameCtx = miniGameCanvas.getContext('2d');
+
+        let jogoAtivo = false;
+        let jogoRodando = false;
+        let jogoAnimId = null;
+
+        const jogoEstado = {
+            largura: 600,
+            altura: 150,
+            chao: 120,
+            jogadorX: 40,
+            jogadorY: 120,
+            jogadorTam: 22,
+            velocidadeY: 0,
+            gravidade: 0.9,
+            forcaPulo: -13,
+            noAr: false,
+            obstaculos: [],
+            velocidade: 5,
+            frame: 0,
+            pontos: 0,
+            gameOver: false,
+        };
+
+        // Ajusta o canvas ao tamanho real do container (responsivo), incluindo
+        // nitidez em telas de alta densidade (devicePixelRatio) e recalcula as
+        // proporções do jogo (jogador, altura de obstáculos etc.) para o novo tamanho.
+        function ajustarTamanhoCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            const larguraDisponivel = (terminalEl ? terminalEl.clientWidth : miniGameCanvas.parentElement.clientWidth) - 16;
+            const larguraCss = Math.max(240, Math.round(larguraDisponivel || 600));
+            // altura proporcional à largura, com limites para não ficar nem muito baixa nem muito alta
+            const alturaCss = Math.max(90, Math.min(150, Math.round(larguraCss * 0.26)));
+
+            const jogadorTam = Math.max(16, Math.min(22, Math.round(alturaCss * 0.16)));
+            const chaoAnterior = jogoEstado.chao;
+            const noChao = !jogoEstado.noAr;
+
+            jogoEstado.largura = larguraCss;
+            jogoEstado.altura = alturaCss;
+            jogoEstado.jogadorTam = jogadorTam;
+            jogoEstado.jogadorX = Math.round(larguraCss * 0.06);
+            jogoEstado.chao = alturaCss - jogadorTam - 10;
+            jogoEstado.gravidade = alturaCss < 120 ? 0.75 : 0.9;
+            jogoEstado.forcaPulo = alturaCss < 120 ? -11 : -13;
+
+            // mantém o jogador no chão se ele já estava no chão antes do redimensionar
+            if (noChao) {
+                jogoEstado.jogadorY = jogoEstado.chao;
+            }
+
+            miniGameCanvas.style.width = larguraCss + 'px';
+            miniGameCanvas.style.height = alturaCss + 'px';
+            miniGameCanvas.width = Math.round(larguraCss * dpr);
+            miniGameCanvas.height = Math.round(alturaCss * dpr);
+            miniGameCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            desenharJogo();
+        }
+
+        function resetarJogo() {
+            jogoEstado.jogadorY = jogoEstado.chao;
+            jogoEstado.velocidadeY = 0;
+            jogoEstado.noAr = false;
+            jogoEstado.obstaculos = [];
+            jogoEstado.velocidade = 5;
+            jogoEstado.frame = 0;
+            jogoEstado.pontos = 0;
+            jogoEstado.gameOver = false;
+        }
+
+        function pularJogador() {
+            if (!jogoEstado.noAr && !jogoEstado.gameOver) {
+                jogoEstado.velocidadeY = jogoEstado.forcaPulo;
+                jogoEstado.noAr = true;
+            } else if (jogoEstado.gameOver) {
+                resetarJogo();
+                jogoRodando = true;
+            }
+        }
+
+        function desenharJogo() {
+            const ctx = miniGameCtx;
+            const e = jogoEstado;
+            ctx.clearRect(0, 0, e.largura, e.altura);
+
+            // chão
+            ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-color') || '#333';
+            ctx.beginPath();
+            ctx.moveTo(0, e.chao + e.jogadorTam);
+            ctx.lineTo(e.largura, e.chao + e.jogadorTam);
+            ctx.stroke();
+
+            const corAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent-color') || '#00ff66';
+
+            // jogador
+            ctx.fillStyle = corAccent;
+            ctx.fillRect(e.jogadorX, e.jogadorY, e.jogadorTam, e.jogadorTam);
+
+            // obstáculos
+            ctx.fillStyle = corAccent;
+            e.obstaculos.forEach(o => {
+                ctx.fillRect(o.x, e.chao + e.jogadorTam - o.altura, o.largura, o.altura);
+            });
+
+            // pontuação
+            ctx.fillStyle = corAccent;
+            ctx.font = '14px monospace';
+            ctx.textAlign = 'right';
+            ctx.fillText('pontos: ' + e.pontos, e.largura - 10, 20);
+
+            if (e.gameOver) {
+                ctx.textAlign = 'center';
+                ctx.font = '18px monospace';
+                ctx.fillText('fim de jogo — espaço/toque para tentar de novo', e.largura / 2, e.altura / 2);
+            }
+        }
+
+        function atualizarJogo() {
+            const e = jogoEstado;
+            if (jogoRodando && !e.gameOver) {
+                e.frame++;
+
+                // física do pulo
+                e.jogadorY += e.velocidadeY;
+                e.velocidadeY += e.gravidade;
+                if (e.jogadorY >= e.chao) {
+                    e.jogadorY = e.chao;
+                    e.velocidadeY = 0;
+                    e.noAr = false;
+                }
+
+                // gera obstáculos periodicamente
+                if (e.frame % 75 === 0) {
+                    const altura = 18 + Math.random() * 18;
+                    e.obstaculos.push({ x: e.largura, largura: 14, altura: altura });
+                }
+
+                // move obstáculos e aumenta dificuldade aos poucos
+                e.velocidade = 5 + Math.floor(e.frame / 400);
+                e.obstaculos.forEach(o => { o.x -= e.velocidade; });
+                e.obstaculos = e.obstaculos.filter(o => o.x + o.largura > 0);
+
+                // pontuação
+                if (e.frame % 6 === 0) e.pontos++;
+
+                // colisão
+                const jx1 = e.jogadorX, jx2 = e.jogadorX + e.jogadorTam;
+                const jyTopo = e.jogadorY;
+                e.obstaculos.forEach(o => {
+                    const ox1 = o.x, ox2 = o.x + o.largura;
+                    const oyTopo = e.chao + e.jogadorTam - o.altura;
+                    const sobrepoeX = jx2 > ox1 && jx1 < ox2;
+                    const sobrepoeY = jyTopo + e.jogadorTam > oyTopo;
+                    if (sobrepoeX && sobrepoeY) {
+                        e.gameOver = true;
+                        jogoRodando = false;
+                    }
+                });
+            }
+
+            desenharJogo();
+            if (jogoAtivo) {
+                jogoAnimId = requestAnimationFrame(atualizarJogo);
+            }
+        }
+
+        function abrirMiniGame() {
+            jogoAtivo = true;
+            jogoRodando = true;
+            miniGameOverlay.classList.add('ativo');
+            ajustarTamanhoCanvas(); // overlay já está visível aqui, então clientWidth é confiável
+            resetarJogo();
+            terminalInput.disabled = true;
+            if (jogoAnimId) cancelAnimationFrame(jogoAnimId);
+            jogoAnimId = requestAnimationFrame(atualizarJogo);
+        }
+
+        function fecharMiniGame() {
+            jogoAtivo = false;
+            jogoRodando = false;
+            if (jogoAnimId) cancelAnimationFrame(jogoAnimId);
+            miniGameOverlay.classList.remove('ativo');
+            terminalInput.disabled = false;
+            terminalInput.focus();
+        }
+
+        // Reajusta o jogo quando a tela muda de tamanho ou gira (celular),
+        // reiniciando a partida em andamento para evitar obstáculos fora de proporção.
+        let resizeTimeoutId = null;
+        window.addEventListener('resize', () => {
+            if (!jogoAtivo) return;
+            clearTimeout(resizeTimeoutId);
+            resizeTimeoutId = setTimeout(() => {
+                ajustarTamanhoCanvas();
+                resetarJogo();
+            }, 150);
+        });
+        window.addEventListener('orientationchange', () => {
+            if (!jogoAtivo) return;
+            setTimeout(() => {
+                ajustarTamanhoCanvas();
+                resetarJogo();
+            }, 200);
+        });
+
+        // controles do mini-game: espaço/seta pra cima pulam, esc fecha
+        document.addEventListener('keydown', (e) => {
+            if (!jogoAtivo) return;
+            if (e.code === 'Space' || e.code === 'ArrowUp') {
+                e.preventDefault();
+                pularJogador();
+            } else if (e.code === 'Escape') {
+                e.preventDefault();
+                fecharMiniGame();
+            }
+        });
+
+        // toque na tela também pula (útil no celular)
+        miniGameCanvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            pularJogador();
+        });
+        miniGameCanvas.addEventListener('mousedown', () => {
+            pularJogador();
+        });
  
         // Remove acentos de uma string (ex: "não" -> "nao", "está" -> "esta")
         function removerAcentos(str) {
@@ -952,6 +1234,17 @@ Regras de resposta:
                 const inputVal = rawVal.toLowerCase();
  
                 if (rawVal !== '') {
+                    // Gatilho do mini-game: só dispara com "Gabriel" exatamente (G maiúsculo).
+                    // "gabriel" em minúsculo continua caindo no comando normal, mais abaixo.
+                    if (rawVal === 'Gabriel') {
+                        appendLine(`<span style="color: var(--accent-color);">gabriel@dev:~$</span> ${rawVal}`);
+                        terminalInput.value = '';
+                        appendLine('Modo secreto ativado. Abrindo mini-game...', 'var(--accent-color)');
+                        abrirMiniGame();
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                        return;
+                    }
+
                     appendLine(`<span style="color: var(--accent-color);">gabriel@dev:~$</span> ${rawVal}`);
                     terminalInput.value = '';
  
