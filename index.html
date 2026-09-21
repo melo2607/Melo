@@ -3,24 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Página pessoal de Gabriel — estudante de programação.">
+<title>Gabriel | Estudante de Programação</title>
+<meta name="description" content="Página pessoal de Gabriel — estudante de programação, membro da equipe de robótica Mega Harpy. Terminal interativo, redes sociais e playlist.">
+<meta name="author" content="Gabriel Melo Silva">
+<meta name="theme-color" content="#121212">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Gabriel | Estudante de Programação">
+<meta property="og:description" content="Página pessoal de Gabriel — estudante de programação. Explore o terminal interativo e descubra os comandos secretos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0d0d'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='38' font-weight='700' text-anchor='middle' fill='%2300ff66'%3EG%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link rel="preconnect" href="https://open.spotify.com">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<title>gabriel legal</title>
 <style>
-        /* Reset para evitar estouro de tela (overflow) */
         *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        /* Variáveis de cores para o Dark/Light Mode */
         :root {
             --bg-color: #121212;
             --container-bg: rgba(20, 20, 20, 0.85);
             --terminal-bg: #0d0d0d;
             --text-color: #ffffff;
-            --accent-color: #00ff66; /* Verde terminal */
+            --accent-color: #00ff66;
             --border-color: #333333;
             --focus-ring: #00ff66;
         }
@@ -37,6 +42,8 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -56,9 +63,18 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            min-height: 100dvh;
         }
 
-        /* Foco visível para navegação por teclado em qualquer elemento interativo */
+        a, button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a:focus:not(:focus-visible),
+        button:focus:not(:focus-visible) {
+            outline: none;
+        }
+
         a:focus-visible,
         button:focus-visible,
         input:focus-visible {
@@ -67,7 +83,6 @@
             border-radius: 4px;
         }
 
-        /* Link para pular direto ao terminal (acessibilidade via teclado) */
         .skip-link {
             position: absolute;
             top: -60px;
@@ -98,7 +113,6 @@
             border: 0;
         }
 
-        /* Botão para mudar Tema */
         .theme-toggle-btn {
             position: fixed;
             top: 20px;
@@ -119,7 +133,6 @@
             transform: scale(1.05);
         }
 
-        /* Cartão Centralizado */
         .main-card {
             background: var(--container-bg);
             border: 1px solid var(--border-color);
@@ -128,6 +141,7 @@
             padding: 30px;
             max-width: 650px;
             width: 100%;
+            min-width: 0;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
@@ -142,20 +156,23 @@
             opacity: 0.9;
         }
 
-        /* Bloco das Redes Sociais */
         .bloco-redes {
             display: flex;
             gap: 20px;
             justify-content: center;
             align-items: center;
             margin: 25px 0;
-            flex-wrap: wrap; /* Permite quebrar linha em telas extremamente estreitas */
+            flex-wrap: wrap;
         }
 
         .bloco-redes a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
+            border: 0;
+            border-bottom: 0;
+            box-shadow: none;
         }
 
         .bloco-redes a i, .bloco-redes a img {
@@ -189,7 +206,6 @@
             filter: invert(55%) sepia(81%) saturate(2971%) hue-rotate(12deg) brightness(101%) contrast(101%);
         }
 
-        /* Preview das Redes Sociais (aparece ao passar o mouse) */
         .rede-item {
             position: relative;
             display: flex;
@@ -217,7 +233,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Setinha apontando para o ícone */
         .social-preview::after {
             content: '';
             position: absolute;
@@ -265,14 +280,12 @@
             line-height: 1.35;
         }
 
-        /* Em telas pequenas/touch, o hover é impreciso: some para não atrapalhar o toque no link */
         @media (max-width: 600px) {
             .social-preview {
                 display: none;
             }
         }
 
-        /* Estilo do Terminal Interativo */
         .terminal {
             background-color: var(--terminal-bg);
             border-radius: 8px;
@@ -305,13 +318,15 @@
         .terminal-body {
             height: 160px;
             overflow-y: auto;
+            overflow-x: hidden;
             font-size: 14px;
             line-height: 1.4;
         }
 
         .terminal-output p {
             margin: 4px 0;
-            word-break: break-word; /* Evita que o texto quebre a largura do terminal no mobile */
+            word-break: break-word;
+            overflow-wrap: anywhere;
         }
 
         .terminal-output a {
@@ -339,6 +354,7 @@
             font-family: inherit;
             font-size: 14px;
             width: 100%;
+            min-width: 0;
             outline: none;
         }
 
@@ -383,7 +399,6 @@
             100% { content: ''; }
         }
 
-        /* Container do Spotify */
         .spotify-container {
             margin-top: 25px;
             border-radius: 12px;
@@ -400,7 +415,27 @@
             height: 152px;
         }
 
-        /* ==================== MINI-GAME (estilo dino do Google) ==================== */
+        .site-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .site-footer p {
+            margin: 6px 0;
+        }
+
+        .site-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
         .mini-game-overlay {
             display: none;
             position: absolute;
@@ -451,8 +486,6 @@
             line-height: 1;
         }
 
-        /* ==================== SUSTO / JUMPSCARE ==================== */
-        /* Tremor rápido e curto, repetido em loop pelos 5s inteiros do susto (ver JS) */
         @keyframes sustoShake {
             0%, 100% { transform: translate(0, 0); }
             10% { transform: translate(-10px, 6px); }
@@ -482,7 +515,6 @@
             overflow: hidden;
         }
 
-        /* Duração total de 5s: entra rápido, segura a imagem tremendo e sai no fim */
         .susto-overlay.susto-ativo {
             display: flex;
             animation: sustoFlash 5s ease-out forwards;
@@ -505,7 +537,6 @@
             animation: sustoPop 0.5s ease-out, sustoTremble 0.12s linear infinite;
         }
 
-        /* Fallback em texto (emoji), usado só se momo.jpg não carregar */
         span.susto-face {
             font-size: 32vw;
             line-height: 1;
@@ -518,7 +549,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Tremor rápido só da foto, além do tremor da tela inteira */
         @keyframes sustoTremble {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
             25% { transform: translate(-3px, 2px) rotate(-1deg); }
@@ -526,8 +556,6 @@
             75% { transform: translate(-2px, 3px) rotate(-1deg); }
         }
 
-        /* Respeita usuários que pedem menos movimento no sistema operacional:
-           sem tremor de tela, sem loop de animação — só um aviso estático rápido */
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
@@ -554,16 +582,10 @@
             }
         }
 
-        /* ==================== REGRAS DE RESPONSIVIDADE ==================== */
-
-        /* Dispositivos Móveis (smartphones até 600px) */
         @media (max-width: 600px) {
             body {
-                padding: 60px 12px 20px 12px; /* Aumentado padding superior para dar espaço ao botão */
+                padding: 60px 12px 20px 12px;
                 background-image: url('meufundo2.png');
-                /* "fixed" obriga o navegador a re-renderizar o fundo a cada scroll,
-                   o que pesa em celulares; "scroll" é mais leve e é o que a maioria
-                   dos navegadores mobile usa de qualquer forma, mesmo com "fixed". */
                 background-attachment: scroll;
             }
 
@@ -587,8 +609,12 @@
             }
 
             .bloco-redes {
-                gap: 15px;
+                gap: 6px;
                 margin: 20px 0;
+            }
+
+            .bloco-redes a {
+                padding: 6px;
             }
 
             .bloco-redes a i, .bloco-redes a img {
@@ -608,11 +634,15 @@
             }
 
             .terminal-input {
-                font-size: 13px;
+                font-size: 16px;
+            }
+
+            .terminal-send-btn {
+                min-height: 36px;
             }
 
             .spotify-container {
-                min-height: 80px; /* Reduz altura caso o Spotify renderize em formato compacto */
+                min-height: 80px;
             }
 
             .spotify-container iframe {
@@ -620,10 +650,9 @@
             }
         }
 
-        /* Telas muito pequenas (smartphones pequenos até 380px) */
         @media (max-width: 380px) {
             .bloco-redes {
-                gap: 12px;
+                gap: 2px;
             }
 
             .bloco-redes a i, .bloco-redes a img {
@@ -637,7 +666,7 @@
             }
 
             .terminal-input {
-                font-size: 12px;
+                font-size: 16px;
             }
 
             .terminal-send-btn {
@@ -649,22 +678,19 @@
 </head>
 <body>
 
-    <a class="skip-link" href="#terminalInput">Pular para o terminal</a>
+<a class="skip-link" href="#terminalInput">Pular para o terminal</a>
 
-    <!-- Overlay do susto/jumpscare (fica escondido até o comando ser digitado) -->
 <div class="susto-overlay" id="sustoOverlay" aria-hidden="true">
-<img class="susto-face" id="sustoImg" src="momo.jpg" alt="">
+<img class="susto-face" id="sustoImg" src="momo.jpg" alt="" decoding="async">
 </div>
 
-    <!-- Botão de Alternar Tema (Dark/Light) -->
 <button class="theme-toggle-btn" id="themeBtn" type="button" aria-pressed="false" aria-label="Alternar entre tema claro e escuro">
 <i class="fa-solid fa-moon" aria-hidden="true"></i>
 </button>
 
-    <main class="main-card">
+<main class="main-card" id="topo">
 <h1>Olá, meu nome é Gabriel</h1>
 <h2>Estou aprendendo sobre programação</h2>
-<!-- Redes Sociais -->
 <nav class="bloco-redes" aria-label="Redes sociais">
 <div class="rede-item">
 <a href="https://www.instagram.com/g_sbriel/" target="_blank" rel="noopener noreferrer" class="link-instagram" aria-label="Instagram de Gabriel, @g_sbriel">
@@ -680,8 +706,8 @@
 </div>
 </div>
 
-            <div class="rede-item">
-<a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="link-linkedin" aria-label="LinkedIn de Gabriel Melo Silva">
+<div class="rede-item">
+<a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385" target="_blank" rel="noopener noreferrer" class="link-linkedin" aria-label="LinkedIn de Gabriel Melo Silva">
 <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
 </a>
 <div class="social-preview" role="tooltip">
@@ -694,8 +720,8 @@
 </div>
 </div>
 
-            <div class="rede-item">
-<a href="https://www.tiktok.com/@.gsbriel?_r=1&_t=ZS-97GtM3Hgq7m" target="_blank" rel="noopener noreferrer" class="link-tiktok" aria-label="TikTok de Gabriel, @g.sbriel">
+<div class="rede-item">
+<a href="https://www.tiktok.com/@.gsbriel" target="_blank" rel="noopener noreferrer" class="link-tiktok" aria-label="TikTok de Gabriel, @g.sbriel">
 <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
 </a>
 <div class="social-preview" role="tooltip">
@@ -708,7 +734,7 @@
 </div>
 </div>
 
-            <div class="rede-item">
+<div class="rede-item">
 <a href="https://github.com/melo2607" target="_blank" rel="noopener noreferrer" class="link-github" aria-label="GitHub de Gabriel, melo2607">
 <i class="fa-brands fa-github" aria-hidden="true"></i>
 </a>
@@ -722,13 +748,13 @@
 </div>
 </div>
 
-            <div class="rede-item">
+<div class="rede-item">
 <a href="https://boxd.it/fHchF" target="_blank" rel="noopener noreferrer" class="link-letterboxd" aria-label="Letterboxd de Gabriel, gabiruds">
-<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="" loading="lazy">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="" width="40" height="40" loading="lazy" decoding="async">
 </a>
 <div class="social-preview" role="tooltip">
 <div class="social-preview-header">
-<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="" loading="lazy" style="width:18px;height:18px;filter:invert(53%) sepia(93%) saturate(1754%) hue-rotate(113deg) brightness(97%) contrast(105%);">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="" width="18" height="18" loading="lazy" decoding="async" style="width:18px;height:18px;filter:invert(53%) sepia(93%) saturate(1754%) hue-rotate(113deg) brightness(97%) contrast(105%);">
 <span>Letterboxd</span>
 </div>
 <p class="social-preview-handle">gabiruds</p>
@@ -737,7 +763,6 @@
 </div>
 </nav>
 
-        <!-- Terminal Interativo -->
 <div class="terminal" role="region" aria-label="Terminal interativo">
 <div class="terminal-header" aria-hidden="true">
 <div class="dot red"></div>
@@ -763,14 +788,23 @@
 </div>
 </div>
 
-        <!-- Widget do Spotify -->
 <div class="spotify-container">
 <iframe src="https://open.spotify.com/embed/playlist/6l0TudKdY56i8gGNvGkunN?utm_source=generator&theme=0" width="100%" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist do Spotify de Gabriel"></iframe>
 </div>
+
+<footer class="site-footer">
+<p>© <span id="anoAtual">2026</span> Gabriel Melo Silva. Feito com HTML, CSS e JavaScript.</p>
+<p>
+<a href="#topo">Voltar ao topo</a> ·
+<a href="https://github.com/melo2607" target="_blank" rel="noopener noreferrer">GitHub</a> ·
+<a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+</p>
+</footer>
 </main>
 
-    <script>
-        // --- 1. Lógica do Dark / Light Mode ---
+<script>
+        document.getElementById('anoAtual').textContent = new Date().getFullYear();
+
         const themeBtn = document.getElementById('themeBtn');
         const icon = themeBtn.querySelector('i');
 
@@ -786,14 +820,11 @@
             }
         });
 
-        // --- Efeito de susto / jumpscare ---
         const sustoOverlay = document.getElementById('sustoOverlay');
         const sustoImg = document.getElementById('sustoImg');
         const prefereMenosMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const SUSTO_DURACAO_MS = 5000;
 
-        // Se momo.jpg ainda não estiver no repositório (ou o caminho for outro),
-        // cai para o emoji no lugar da foto em vez de mostrar uma imagem quebrada.
         sustoImg.addEventListener('error', () => {
             const fallback = document.createElement('span');
             fallback.className = 'susto-face';
@@ -812,7 +843,6 @@
             osc.type = 'sawtooth';
             osc.frequency.setValueAtTime(220, ctx.currentTime);
 
-            // LFO faz a frequência "balançar" continuamente, dando um ar de sirene/grito
             lfo.type = 'sine';
             lfo.frequency.setValueAtTime(6, ctx.currentTime);
             lfoGain.gain.setValueAtTime(90, ctx.currentTime);
@@ -821,9 +851,9 @@
 
             const fim = ctx.currentTime + duracaoSegundos;
             gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.5, ctx.currentTime + 0.06); // ataque rápido e alto
+            gain.gain.exponentialRampToValueAtTime(0.5, ctx.currentTime + 0.06);
             gain.gain.setValueAtTime(0.5, fim - 0.4);
-            gain.gain.exponentialRampToValueAtTime(0.001, fim); // some junto com a imagem
+            gain.gain.exponentialRampToValueAtTime(0.001, fim);
 
             osc.connect(gain).connect(ctx.destination);
             osc.start();
@@ -833,12 +863,11 @@
         }
 
         function dispararSusto() {
-            // Quem pediu menos movimento no sistema não recebe o susto visual/tremor/som
             if (prefereMenosMovimento) return;
 
             sustoOverlay.classList.remove('susto-ativo');
             document.body.classList.remove('susto-shake');
-            void sustoOverlay.offsetWidth; // força reflow para reiniciar as animações CSS
+            void sustoOverlay.offsetWidth;
 
             sustoOverlay.classList.add('susto-ativo');
             document.body.classList.add('susto-shake');
@@ -846,7 +875,6 @@
             try {
                 tocarSomDeSusto(SUSTO_DURACAO_MS / 1000);
             } catch (err) {
-                // se o navegador bloquear áudio, o susto visual continua funcionando normalmente
             }
 
             setTimeout(() => {
@@ -855,7 +883,6 @@
             }, SUSTO_DURACAO_MS);
         }
 
-        // --- 2. Lógica do Terminal Interativo (agora com IA) ---
         const terminalForm = document.getElementById('terminalForm');
         const terminalInput = document.getElementById('terminalInput');
         const terminalSendBtn = document.getElementById('terminalSendBtn');
@@ -926,11 +953,6 @@
 <b style="color: var(--accent-color);">clear</b> — limpa a tela<br>
 <b style="color: var(--accent-color);">help</b> (ou <b style="color: var(--accent-color);">comandos</b>) — mostra essa lista`;
 
-        // Comandos "de sistema": respondem na hora, sem passar pela IA.
-        // Observação: chaves duplicadas foram removidas — em um objeto JS a última
-        // ocorrência sempre vence e sobrescreve a anterior silenciosamente, o que
-        // no arquivo original fazia o comando "curiosidade" (fato aleatório) virar
-        // um texto fixo, por exemplo.
         const systemCommands = {
             'clear': 'CLEAR',
             'cls': 'CLEAR',
@@ -962,7 +984,6 @@
             'a': 'b',
             'zap': 'não fale o nome do monstro... vai que ele aparece...',
             'comunismo': 'gosto',
-            // comandos do caio kenji sakamoto
             'caio': 'cobrakaio',
             'sonhei com a imagem tua': 'caguei na cama, joguei na rua',
             'a bosta endureceu': 'passou um carro, furou o pneu',
@@ -974,7 +995,6 @@
             'nunca mais': 'never again',
             'the': 'and',
 
-            // --- Memes & Internet ---
             'cansei': 'Já tentou desligar e ligar de novo?',
             '404': 'Erro 404.',
             'calma calabreso': 'Calma aí, amostradinho!',
@@ -982,14 +1002,12 @@
             'o que e o amor': "Baby don't hurt me, don't hurt me, no more...",
             'paz': 'A paz que você procura está em fechar todas as abas do navegador.',
 
-            // --- Programação & Dev ---
             'git': 'git commit -m "fiz gambiarra e funcionou, não mexa"',
             'hello world': 'Que bonitinho cara.',
             'python': 'Essa eu sou fluente',
             'javascript': 'Vamo faze um site!',
             'css': 'Tentando centralizar uma div desde 2020.',
 
-            // --- Robótica & FRC ---
             'frc': 'FIRST Robotics Competition: onde o sono é opcional e a paixão por robôs é gigante!',
             'olhei pro ceu e o que eu vi': 'Mega harpy ta aqui!',
             'e ta voando o pais': 'mega harpy ta aqui',
@@ -998,9 +1016,7 @@
             'pit': 'Atenção equipe: o robô precisa estar na arena em 2 minutos!',
             'gracious professionalism': '...HEY',
             'autonomous': 'O nosso AGORA funciona',
-            
 
-            // --- Gamer & Pop ---
             'ping': 'Pong! (Latência: 1ms)',
             'konami': 'cima, cima, baixo, baixo, esquerda, direita, esquerda, direita, B A',
             'halo': 'Finish the fight.',
@@ -1009,7 +1025,6 @@
             'batman': 'O batman não tem limites.',
             'minecraft': 'E o universo disse eu te amo E o universo disse que você jogou bem o jogo E o universo disse que tudo o que você precisa está dentro de você E o universo disse que você é mais forte do que imagina E o universo disse que você é a luz do dia E o universo disse que você é a noite E o universo disse que as trevas contra as quais você luta estão dentro de você E o universo disse que a luz que você procura está dentro de você E o universo disse que você não está sozinho E o universo disse que você não está separado de qualquer outra coisa E o universo disse que você é o universo provando a si mesmo, falando consigo mesmo, lendo o seu próprio código E o universo disse eu te amo porque você é amor. E o jogo acabou e o jogador acordou do sonho. E o jogador começou um novo sonho. E o jogador sonhou novamente, sonhou melhor. E o jogador era o universo. E o jogador era amor. Você é o jogador. Acorde.',
 
-            // --- Utilitários & Interativos ---
             'clima': 'Não sei, to no quarto programando ou no senai estudando',
             'contact': 'Mande uma mensagem no meu Instagram!',
             'contato': 'Mande uma mensagem no meu Instagram!',
@@ -1018,7 +1033,6 @@
             'moeda': () => Math.random() < 0.5 ? 'Deu CARA!' : 'Deu COROA!',
             'dado': () => `Você tirou o número: ${Math.floor(Math.random() * 6) + 1}`,
 
-            // --- Zuaria & Respostas Rápidas ---
             'oi': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
             'ola': 'Suave? Digite "help" para ver a lista de comandos.',
             'tudo bem?': 'Tudo rodando com varios erros! E com você?',
@@ -1027,7 +1041,6 @@
             'sudo rm -rf /': 'Tentativa de invasão registrada... Brincadeira, mas não faça isso!',
             'ia': 'Ta loco',
 
-            // === CADEIA 1: A MATRIX ===
             'segredo': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
             'secret': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
             'coelho': 'Voce encontrou a entrada. Digite "pilula" para fazer sua escolha.',
@@ -1037,7 +1050,6 @@
             'pilula vermelha': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
             'red pill': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
 
-            // === CADEIA 3: JOGO DE TEXTO / LABIRINTO ===
             'inicio': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
             'start': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
             'home': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
@@ -1049,12 +1061,10 @@
             'decrypt': 'Acesso liberado! A chave mestra e o comando "melo2607".',
             'melo2607': 'Voce chegou ao centro do sistema de Gabriel. Parabens por explorar tudo!',
 
-            // === CADEIA 4: O BUG NO CÓDIGO ===
             'bug': 'Um erro foi encontrado no sistema. Digite "inspect" para investigar.',
             'inspect': 'Erro na linha 42: funcao indefinida. Digite "fix" para aplicar o patch.',
             'fix': 'Patch aplicado com sucesso. O sistema voltou ao estado normal.',
 
-            // --- Mais comandos "de sistema" (unix/windows) ---
             'pwd': '/home/gabriel',
             'cd': 'bash: cd: comando desabilitado neste terminal',
             'mkdir': 'Pasta criada (mentira, isso e so um site).',
@@ -1076,7 +1086,6 @@
             'sair': 'Nao ha como sair, so fechar a aba mesmo.',
             'quit': 'Nao ha como sair, so fechar a aba mesmo.',
 
-            // --- Cumprimentos e conversa básica ---
             'fala': 'Fala tu! Suave? Digite "help" para ver os comandos.',
             'fala dele': 'É o homem, não tem jeito!',
             'salve': 'Salve! De boa por aí?',
@@ -1116,7 +1125,6 @@
             'tudo bem': 'Tudo ótimo por aqui! Espero que por aí também.',
             'tudo joia?': 'Tudo joia! Só na paz por aqui.',
 
-            // --- Sobre o Gabriel ---
             'quem e voce': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
             'who are you': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
             'o que voce faz': 'Estudo desenvolvimento web e participo da equipe de robotica Mega Harpy.',
@@ -1131,7 +1139,6 @@
             'hobbies': 'Programar, assistir filmes e mexer com robótica.',
             'ai': 'ai ai aiaiaiai assim você mata o papai',
 
-            // --- Redes sociais como comando direto ---
             'instagram': `Me segue no insta: <a href="https://www.instagram.com/g_sbriel/" target="_blank" rel="noopener noreferrer">@g_sbriel</a>.`,
             'tiktok': `Me segue no tiktok: <a href="https://www.tiktok.com/@.gsbriel" target="_blank" rel="noopener noreferrer">@g.sbriel</a>.`,
             'linkedin': `Meu Linkedin: <a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385" target="_blank" rel="noopener noreferrer">Gabriel Melo Silva</a>.`,
@@ -1141,7 +1148,6 @@
             'musica': 'Da uma olhada na playlist tocando ali embaixo do terminal',
             'music': 'Da uma olhada na playlist tocando ali embaixo do terminal',
 
-            // --- Saudações e despedidas ---
             'hello': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
             'hi': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
             'hey': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
@@ -1160,7 +1166,6 @@
             'thank you': 'Disponha!',
             'valeu': 'Eu que agradeço!',
 
-            // --- Memes & Cultura Pop ---
             'skibidi': 'Nem vem com isso por aqui.',
             'sigma': 'Foco nos estudos e no código, sempre.',
             'la ele': 'Lá ele 1000x!',
@@ -1171,7 +1176,6 @@
             'barbie': 'Hi Barbie! Hi Ken!',
             'oppenheimer': 'Agora eu me tornei o Morte, o destruidor de compilações.',
 
-            // --- Programação, Tech & Dev ---
             'stack overflow': 'Copia e cola com moderação, hein!',
             'bug no meu codigo': 'Coloca um console.log() até achar.',
             'gambiarra': 'Não é bug, é funcionalidade alternativa temporária.',
@@ -1185,7 +1189,6 @@
             'html': 'HTML não é linguagem de programação, mas é o esqueleto de tudo!',
             'vscode': 'O melhor editor, sem discussão (ou quase).',
 
-            // --- Filmes & Séries ---
             'cinema': 'Dá uma olhada no meu Letterboxd para ver o que ando assistindo!',
             'interstellar': 'Um dia aqui são 7 anos na Terra... tipo tentar arrumar um bug de CSS.',
             'the batman': 'I am the vengeance... I am the night!',
@@ -1196,7 +1199,6 @@
             'avengers': 'Devs... avante!',
             'fight club': 'Primeira regra: você não fala sobre o código em produção.',
 
-            // --- Easter eggs & filosofia leve ---
             '42': 'A resposta para a vida, o universo e tudo mais.',
             'easter egg': 'Você encontrou um! Mas ainda existem outros escondidos...',
             'admin123': 'Senha fraca detectada. Tente novamente!',
@@ -1213,7 +1215,6 @@
             'sono': 'Ir dormir é para quem não tem código pra rodar.',
             'vibe': 'Só no sapatinho, mantendo a calma e codando.',
 
-            // --- Termos de programação (glossário rápido) ---
             'async': 'Espere a promessa ser resolvida sem travar a aplicação.',
             'await': 'Aguarde um momento, o processamento está em andamento...',
             'agile': 'Entregando valor em ciclos curtos e contínuos.',
@@ -1311,7 +1312,6 @@
             'workflow': 'O fluxo de trabalho bem estruturado da ideia até o deploy.',
             'zero bugs': 'A meta diária de todo desenvolvedor.',
 
-            // --- Assuntos gerais e conversa fiada ---
             'astronomia': 'Olhar para as estrelas é lembrar o quão gigante é o universo.',
             'arte': 'Expressão humana em sua forma mais pura, seja numa pintura ou em um bom código.',
             'ansiedade': 'Respira fundo. Um passo de cada vez.',
@@ -1377,7 +1377,6 @@
             'xadrez': 'eu so bom',
             'zoeira': 'não tem limite',
 
-            // --- Utilitários rápidos ---
             'ano': () => new Date().getFullYear(),
             'mes': () => new Date().toLocaleString('pt-BR', { month: 'long' }),
             'dia': () => new Date().getDate(),
@@ -1389,12 +1388,10 @@
             'status': 'Todos os serviços rodando em 100% de capacidade.',
             'dev': 'Gabriel - ADS | Dev em construção.',
 
-            // --- Susto / jumpscare ---
             'susto': () => { dispararSusto(); return 'Relaxa, era só brincadeira...'; },
             'jumpscare': () => { dispararSusto(); return 'Relaxa, era só brincadeira...'; },
         };
 
-        // --- Mini-game estilo "dino do Google", ativado ao digitar "Gabriel" (com G maiúsculo) ---
         const terminalEl = document.querySelector('.terminal');
         const miniGameOverlay = document.getElementById('miniGameOverlay');
         const miniGameCanvas = document.getElementById('miniGameCanvas');
@@ -1612,7 +1609,6 @@
             pularJogador();
         });
 
-        // Remove acentos de uma string (ex: "não" -> "nao", "está" -> "esta")
         function removerAcentos(str) {
             return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         }
@@ -1663,9 +1659,17 @@ Regras de resposta:
                     })
                 });
 
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status);
+                }
+
                 const data = await response.json();
                 const textBlock = (data.content || []).find(b => b.type === 'text');
-                const replyText = textBlock ? textBlock.text : 'Erro: sem resposta do sistema.';
+                if (!textBlock) {
+                    throw new Error('Resposta vazia');
+                }
+
+                const replyText = textBlock.text;
 
                 conversationHistory.push({ role: 'assistant', content: replyText });
                 if (conversationHistory.length > 12) {
@@ -1675,7 +1679,8 @@ Regras de resposta:
                 thinkingLine.innerHTML = replyText;
                 thinkingLine.style.color = '';
             } catch (err) {
-                thinkingLine.textContent = 'Erro: falha de conexão com o terminal.';
+                conversationHistory.pop();
+                thinkingLine.textContent = 'Erro: o terminal não conseguiu responder agora. Tente novamente em instantes ou digite "help".';
                 thinkingLine.style.color = '#ff5f56';
             }
 
@@ -1725,7 +1730,7 @@ Regras de resposta:
                 terminalInput.disabled = true;
                 terminalSendBtn.disabled = true;
                 askAI(rawVal);
-                return; // askAI reabilita o input ao terminar
+                return;
             }
 
             terminalBody.scrollTop = terminalBody.scrollHeight;
