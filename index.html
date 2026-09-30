@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://open.spotify.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="animacoes.css">
 <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -786,9 +787,11 @@
             }
         }
 </style>
+<div class="intro" id="intro" aria-hidden="true"><span class="intro-bar"></span><span class="intro-bar"></span><span class="intro-bar"></span></div>
+<div class="progresso" aria-hidden="true"></div>
 </head>
 <body>
-
+<script src="animacoes.js" defer></script>
 <a class="skip-link" href="#terminalInput">Pular para o terminal</a>
 
 <div class="susto-overlay" id="sustoOverlay" aria-hidden="true">
