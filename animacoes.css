@@ -1,0 +1,118 @@
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: flex;
+    pointer-events: none;
+}
+
+.intro-bar {
+    flex: 1;
+    background: var(--accent-color);
+    transform-origin: top;
+    animation: introBar 0.85s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.intro-bar:nth-child(1) { animation-delay: 0.15s; }
+.intro-bar:nth-child(2) { animation-delay: 0.27s; }
+.intro-bar:nth-child(3) { animation-delay: 0.39s; }
+
+@keyframes introBar {
+    to { transform: scaleY(0); }
+}
+
+.main-card {
+    animation: cardIn 1s cubic-bezier(0.76, 0, 0.24, 1) 0.7s both;
+}
+
+@keyframes cardIn {
+    from { clip-path: inset(100% 0 0 0); }
+    to { clip-path: inset(-300px); }
+}
+
+.palavra {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-top: 0.15em;
+    margin-top: -0.15em;
+    padding-bottom: 0.1em;
+}
+
+.ch {
+    display: inline-block;
+    animation: chIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes chIn {
+    from { transform: translateY(115%) skewY(10deg); }
+    to { transform: none; }
+}
+
+.terminal-output p {
+    animation: linhaIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes linhaIn {
+    from { transform: translateX(-14px) skewX(-6deg); opacity: 0; }
+    to { transform: none; opacity: 1; }
+}
+
+.bloco-redes a {
+    will-change: transform;
+}
+
+.progresso {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    z-index: 1500;
+    pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+    .progresso {
+        animation: progresso linear both;
+        animation-timeline: scroll(root);
+    }
+}
+
+@keyframes progresso {
+    to { transform: scaleX(1); }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+    animation: temaWipe 0.7s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+@keyframes temaWipe {
+    from { clip-path: polygon(0 0, 0 0, -30% 100%, -30% 100%); }
+    to { clip-path: polygon(0 0, 130% 0, 100% 100%, -30% 100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .intro { display: none; }
+    .main-card,
+    .ch,
+    .terminal-output p,
+    .progresso {
+        animation: none;
+    }
+    .progresso { display: none; }
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none;
+    }
+}
