@@ -17,10 +17,7 @@
 <link rel="preconnect" href="https://open.spotify.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="animacoes.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -35,7 +32,6 @@
             --text-color: #e7f2ec;
             --text-dim: #9fb5ac;
             --accent-color: #39ff88;
-            --accent-color-strong: #1fe873;
             --accent-contrast: #04140a;
             --border-color: rgba(57, 255, 136, 0.16);
             --border-color-strong: rgba(57, 255, 136, 0.32);
@@ -55,7 +51,6 @@
             --text-color: #12241a;
             --text-dim: #4b6157;
             --accent-color: #0a7a4f;
-            --accent-color-strong: #08633f;
             --accent-contrast: #ffffff;
             --border-color: rgba(10, 122, 79, 0.18);
             --border-color-strong: rgba(10, 122, 79, 0.35);
@@ -71,69 +66,17 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: var(--bg-glow), url('meufundo.png');
-            background-size: cover, cover;
-            background-position: center, center center;
-            background-repeat: no-repeat, no-repeat;
-            background-attachment: fixed, fixed;
+            background-image: var(--bg-glow);
             color: var(--text-color);
             font-family: var(--font-body);
             margin: 0;
             padding: 48px 20px;
             text-align: center;
-            transition: background-color 0.35s ease, color 0.35s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             min-height: 100dvh;
-        }
-
-        a, button {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        a:focus:not(:focus-visible),
-        button:focus:not(:focus-visible) {
-            outline: none;
-        }
-
-        a:focus-visible,
-        button:focus-visible,
-        input:focus-visible {
-            outline: 2px solid var(--focus-ring);
-            outline-offset: 3px;
-            border-radius: 4px;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -60px;
-            left: 12px;
-            background: var(--accent-color);
-            color: var(--accent-contrast);
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            z-index: 2000;
-            transition: top 0.2s ease;
-        }
-
-        .skip-link:focus {
-            top: 12px;
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
         }
 
         .theme-switch {
@@ -151,11 +94,6 @@
             cursor: pointer;
             backdrop-filter: blur(8px);
             box-shadow: 0 6px 20px var(--shadow-color);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .theme-switch:hover {
-            border-color: var(--border-color-strong);
         }
 
         .theme-switch-track {
@@ -165,7 +103,6 @@
             border-radius: 999px;
             background: rgba(127, 127, 127, 0.18);
             border: 1px solid var(--border-color);
-            transition: background-color 0.3s ease;
         }
 
         .theme-switch-thumb {
@@ -181,27 +118,12 @@
             align-items: center;
             justify-content: center;
             font-size: 12px;
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform: translateX(0);
         }
 
         body.light-mode .theme-switch-thumb {
             transform: translateX(24px);
-        }
-
-        .theme-switch-label {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            letter-spacing: 0.02em;
-            color: var(--text-dim);
-            padding-right: 4px;
-            display: none;
-        }
-
-        @media (min-width: 480px) {
-            .theme-switch-label {
-                display: inline;
-            }
         }
 
         .main-card {
@@ -213,7 +135,6 @@
             padding: 36px 32px;
             max-width: 640px;
             width: 100%;
-            min-width: 0;
             box-shadow: 0 20px 60px var(--shadow-color);
         }
 
@@ -229,7 +150,6 @@
             font-size: 2.15rem;
             font-weight: 700;
             margin: 0 0 6px;
-            letter-spacing: -0.01em;
         }
 
         .main-card h2 {
@@ -237,144 +157,6 @@
             font-weight: 400;
             color: var(--text-dim);
             margin: 0 0 4px;
-        }
-
-        .cursor-blink {
-            display: inline-block;
-            width: 0.5em;
-            height: 0.85em;
-            vertical-align: -0.08em;
-            background: var(--accent-color);
-            margin-left: 2px;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-
-        .bloco-redes {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            margin: 28px 0 8px;
-            flex-wrap: wrap;
-        }
-
-        .bloco-redes a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            text-decoration: none;
-            border: 1px solid transparent;
-            transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .bloco-redes a:hover,
-        .bloco-redes a:focus-visible {
-            border-color: var(--border-color-strong);
-            background: rgba(127, 127, 127, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .bloco-redes a i, .bloco-redes a img {
-            font-size: 22px;
-            width: 22px;
-            height: 22px;
-        }
-
-        .link-instagram i { color: #E1306C; }
-        .link-tiktok i { color: #17e0d6; }
-        .link-linkedin i { color: #0A8ACB; }
-        .link-github i { color: var(--text-color); }
-
-        .link-letterboxd img {
-            filter: invert(53%) sepia(93%) saturate(1754%) hue-rotate(113deg) brightness(97%) contrast(105%);
-        }
-
-        .rede-item {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .social-preview {
-            position: absolute;
-            bottom: calc(100% + 12px);
-            left: 50%;
-            transform: translateX(-50%) translateY(8px);
-            width: 210px;
-            background: var(--container-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 12px 14px;
-            text-align: left;
-            box-shadow: 0 8px 24px var(--shadow-color);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            z-index: 50;
-            font-family: var(--font-body);
-        }
-
-        .social-preview::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 7px;
-            border-style: solid;
-            border-color: var(--container-bg) transparent transparent transparent;
-        }
-
-        .rede-item:hover .social-preview,
-        .rede-item:focus-within .social-preview {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-            pointer-events: auto;
-        }
-
-        .social-preview-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .social-preview-header i {
-            font-size: 18px;
-            width: 18px;
-            height: 18px;
-        }
-
-        .social-preview-handle {
-            margin: 6px 0 4px 0;
-            font-size: 0.85rem;
-            color: var(--accent-color);
-            font-family: var(--font-mono);
-        }
-
-        .social-preview-desc {
-            margin: 0;
-            font-size: 0.8rem;
-            opacity: 0.85;
-            line-height: 1.35;
-        }
-
-        @media (max-width: 600px) {
-            .social-preview {
-                display: none;
-            }
         }
 
         .terminal {
@@ -405,14 +187,9 @@
             margin-left: 8px;
             font-size: 11px;
             color: var(--text-dim);
-            letter-spacing: 0.02em;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
         .red { background: #ff5f56; }
         .yellow { background: #ffbd2e; }
         .green { background: #27c93f; }
@@ -420,45 +197,13 @@
         .terminal-body {
             height: 190px;
             overflow-y: auto;
-            overflow-x: hidden;
             font-size: 13.5px;
             line-height: 1.55;
             padding: 14px;
-            cursor: text;
         }
 
-        .terminal-body::-webkit-scrollbar {
-            width: 8px;
-        }
-        .terminal-body::-webkit-scrollbar-thumb {
-            background: var(--border-color-strong);
-            border-radius: 8px;
-        }
-        .terminal-body::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .terminal-output p {
-            margin: 5px 0;
-            word-break: break-word;
-            overflow-wrap: anywhere;
-        }
-
-        .terminal-output a {
-            color: var(--accent-color);
-        }
-
-        .linha-comando {
-            color: var(--text-dim);
-        }
-
-        .linha-comando .prompt-symbol {
-            color: var(--accent-color);
-        }
-
-        .linha-erro {
-            color: #ff8478;
-        }
+        .terminal-output p { margin: 5px 0; word-break: break-word; }
+        .terminal-output a { color: var(--accent-color); }
 
         .prompt-line {
             display: flex;
@@ -472,7 +217,6 @@
         .prompt-symbol {
             color: var(--accent-color);
             font-weight: bold;
-            white-space: nowrap;
         }
 
         .terminal-input {
@@ -482,12 +226,7 @@
             font-family: inherit;
             font-size: 14px;
             width: 100%;
-            min-width: 0;
             outline: none;
-        }
-
-        .terminal-input:disabled {
-            opacity: 0.5;
         }
 
         .terminal-send-btn {
@@ -497,1494 +236,105 @@
             border-radius: 6px;
             padding: 6px 12px;
             font-family: inherit;
-            font-size: 12.5px;
             cursor: pointer;
-            white-space: nowrap;
-            transition: background-color 0.2s ease, color 0.2s ease;
         }
-
-        .terminal-send-btn:hover:not(:disabled),
-        .terminal-send-btn:focus-visible:not(:disabled) {
-            background: var(--accent-color);
-            color: var(--accent-contrast);
-        }
-
-        .terminal-send-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .spotify-container {
-            margin-top: 22px;
-            border-radius: 12px;
-            overflow: hidden;
-            width: 100%;
-            min-height: 152px;
-            background: rgba(0, 0, 0, 0.15);
-            border: 1px solid var(--border-color);
-        }
-
-        .spotify-container iframe {
-            display: block;
-            border: 0;
-            width: 100%;
-            height: 152px;
-        }
-
-        .site-footer {
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.82rem;
-            color: var(--text-dim);
-        }
-
-        .site-footer p {
-            margin: 6px 0;
-        }
-
-        .site-footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        .site-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .mini-game-overlay {
-            display: none;
-            position: absolute;
-            inset: 0;
-            background: var(--terminal-bg);
-            z-index: 20;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .mini-game-overlay.ativo {
-            display: flex;
-        }
-
-        #miniGameCanvas {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            background: var(--terminal-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            touch-action: manipulation;
-        }
-
-        .mini-game-info {
-            margin: 6px 0 0 0;
-            font-size: 12px;
-            color: var(--accent-color);
-            font-family: var(--font-mono);
-            text-align: center;
-        }
-
-        .mini-game-close {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: transparent;
-            border: 1px solid var(--border-color-strong);
-            color: var(--text-color);
-            border-radius: 6px;
-            width: 28px;
-            height: 28px;
-            cursor: pointer;
-            font-size: 14px;
-            line-height: 1;
-        }
-
-        @keyframes sustoShake {
-            0%, 100% { transform: translate(0, 0); }
-            10% { transform: translate(-10px, 6px); }
-            20% { transform: translate(9px, -7px); }
-            30% { transform: translate(-8px, 9px); }
-            40% { transform: translate(7px, -9px); }
-            50% { transform: translate(-9px, -6px); }
-            60% { transform: translate(9px, 7px); }
-            70% { transform: translate(-7px, -9px); }
-            80% { transform: translate(7px, 9px); }
-            90% { transform: translate(-4px, 4px); }
-        }
-
-        body.susto-shake {
-            animation: sustoShake 0.4s linear infinite;
-        }
-
-        .susto-overlay {
-            position: fixed;
-            inset: 0;
-            background: #000000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .susto-overlay.susto-ativo {
-            display: flex;
-            animation: sustoFlash 5s ease-out forwards;
-        }
-
-        @keyframes sustoFlash {
-            0% { opacity: 0; }
-            4% { opacity: 1; }
-            92% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .susto-face {
-            max-width: 90vw;
-            max-height: 90vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 0 40px #000);
-            animation: sustoPop 0.5s ease-out, sustoTremble 0.12s linear infinite;
-        }
-
-        span.susto-face {
-            font-size: 32vw;
-            line-height: 1;
-        }
-
-        @keyframes sustoPop {
-            0% { transform: scale(0.3); }
-            15% { transform: scale(1.5); }
-            30% { transform: scale(1); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes sustoTremble {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(-3px, 2px) rotate(-1deg); }
-            50% { transform: translate(3px, -2px) rotate(1deg); }
-            75% { transform: translate(-2px, 3px) rotate(-1deg); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-            .theme-switch-thumb,
-            .bloco-redes a,
-            .terminal-send-btn {
-                transition: none;
-            }
-            .cursor-blink {
-                animation: none;
-            }
-            body.susto-shake {
-                animation: none;
-            }
-            .susto-overlay.susto-ativo {
-                animation: none;
-                opacity: 0.9;
-            }
-            .susto-face {
-                animation: none;
-            }
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 64px 12px 20px 12px;
-                background-image: var(--bg-glow), url('meufundo2.png');
-                background-attachment: scroll, scroll;
-            }
-
-            .theme-switch {
-                top: 12px;
-                right: 12px;
-            }
-
-            .main-card {
-                padding: 24px 18px;
-            }
-
-            .main-card h1 {
-                font-size: 1.6rem;
-            }
-
-            .main-card h2 {
-                font-size: 1rem;
-            }
-
-            .bloco-redes {
-                gap: 4px;
-            }
-
-            .bloco-redes a {
-                width: 44px;
-                height: 44px;
-            }
-
-            .terminal {
-                margin-top: 22px;
-            }
-
-            .terminal-body {
-                height: 160px;
-                font-size: 13px;
-            }
-
-            .terminal-input {
-                font-size: 16px;
-            }
-
-            .terminal-send-btn {
-                min-height: 36px;
-            }
-
-            .spotify-container {
-                min-height: 80px;
-            }
-
-            .spotify-container iframe {
-                height: 152px;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .bloco-redes a {
-                width: 40px;
-                height: 40px;
-            }
-
-            .prompt-symbol {
-                font-size: 12px;
-            }
-
-            .terminal-input {
-                font-size: 16px;
-            }
-
-            .terminal-send-btn {
-                padding: 5px 9px;
-                font-size: 12px;
-            }
+        
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;
         }
 </style>
 </head>
 <body>
-<div class="intro" id="intro" aria-hidden="true"><span class="intro-bar"></span><span class="intro-bar"></span><span class="intro-bar"></span></div>
-<div class="progresso" aria-hidden="true"></div>
-<script src="animacoes.js" defer></script>
-<a class="skip-link" href="#terminalInput">Pular para o terminal</a>
 
-<div class="susto-overlay" id="sustoOverlay" aria-hidden="true">
-<img class="susto-face" id="sustoImg" src="momo.jpg" alt="" decoding="async">
-</div>
-
-<button class="theme-switch" id="themeBtn" type="button" aria-pressed="false" aria-label="Alternar entre tema claro e escuro">
-<span class="theme-switch-label" id="themeLabel">escuro</span>
-<span class="theme-switch-track">
-<span class="theme-switch-thumb" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
-</span>
+<button class="theme-switch" id="themeBtn" type="button" aria-label="Alternar tema">
+    <span class="theme-switch-track"><span class="theme-switch-thumb"><i class="fa-solid fa-moon"></i></span></span>
 </button>
 
-<main class="main-card" id="topo">
-<p class="eyebrow">~/gabriel</p>
-<h1 id="tituloPagina">Olá, meu nome é Gabriel<span class="cursor-blink" aria-hidden="true"></span></h1>
-<h2>Estou aprendendo sobre programação</h2>
+<main class="main-card">
+    <p class="eyebrow">~/gabriel</p>
+    <h1>Olá, meu nome é Gabriel</h1>
+    <h2>Estou aprendendo sobre programação</h2>
 
-<nav class="bloco-redes" aria-label="Redes sociais">
-<div class="rede-item">
-<a href="https://www.instagram.com/g_sbriel/" target="_blank" rel="noopener noreferrer" class="link-instagram" aria-label="Instagram de Gabriel, @g_sbriel">
-<i class="fa-brands fa-instagram" aria-hidden="true"></i>
-</a>
-<div class="social-preview" role="tooltip">
-<div class="social-preview-header">
-<i class="fa-brands fa-instagram" style="color:#E1306C;" aria-hidden="true"></i>
-<span>Instagram</span>
-</div>
-<p class="social-preview-handle">@g_sbriel</p>
-<p class="social-preview-desc">Um pouco das minimas coisas que eu posto.</p>
-</div>
-</div>
-
-<div class="rede-item">
-<a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385" target="_blank" rel="noopener noreferrer" class="link-linkedin" aria-label="LinkedIn de Gabriel Melo Silva">
-<i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-</a>
-<div class="social-preview" role="tooltip">
-<div class="social-preview-header">
-<i class="fa-brands fa-linkedin" style="color:#0A8ACB;" aria-hidden="true"></i>
-<span>LinkedIn</span>
-</div>
-<p class="social-preview-handle">Gabriel Melo Silva</p>
-<p class="social-preview-desc">Minha trajetória até então.</p>
-</div>
-</div>
-
-<div class="rede-item">
-<a href="https://www.tiktok.com/@.gsbriel" target="_blank" rel="noopener noreferrer" class="link-tiktok" aria-label="TikTok de Gabriel, @g.sbriel">
-<i class="fa-brands fa-tiktok" aria-hidden="true"></i>
-</a>
-<div class="social-preview" role="tooltip">
-<div class="social-preview-header">
-<i class="fa-brands fa-tiktok" style="color:#17e0d6;" aria-hidden="true"></i>
-<span>TikTok</span>
-</div>
-<p class="social-preview-handle">@g_sbriel</p>
-<p class="social-preview-desc">Minha coonta de conteúdos antes duvidosos</p>
-</div>
-</div>
-
-<div class="rede-item">
-<a href="https://github.com/melo2607" target="_blank" rel="noopener noreferrer" class="link-github" aria-label="GitHub de Gabriel, melo2607">
-<i class="fa-brands fa-github" aria-hidden="true"></i>
-</a>
-<div class="social-preview" role="tooltip">
-<div class="social-preview-header">
-<i class="fa-brands fa-github" aria-hidden="true"></i>
-<span>GitHub</span>
-</div>
-<p class="social-preview-handle">melo2607</p>
-<p class="social-preview-desc">Projetos pessoais, como o Karaokê ou meu próprio site.</p>
-</div>
-</div>
-
-<div class="rede-item">
-<a href="https://boxd.it/fHchF" target="_blank" rel="noopener noreferrer" class="link-letterboxd" aria-label="Letterboxd de Gabriel, gabiruds">
-<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="" width="22" height="22" loading="lazy" decoding="async">
-</a>
-<div class="social-preview" role="tooltip">
-<div class="social-preview-header">
-<img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/letterboxd.svg" alt="" width="18" height="18" loading="lazy" decoding="async" style="width:18px;height:18px;filter:invert(53%) sepia(93%) saturate(1754%) hue-rotate(113deg) brightness(97%) contrast(105%);">
-<span>Letterboxd</span>
-</div>
-<p class="social-preview-handle">gabiruds</p>
-<p class="social-preview-desc">Avaliações e reviews de filmes assistidos.</p>
-</div>
-</div>
-</nav>
-
-<div class="terminal" role="region" aria-label="Terminal interativo">
-<div class="terminal-header" aria-hidden="true">
-<div class="dot red"></div>
-<div class="dot yellow"></div>
-<div class="dot green"></div>
-<span class="terminal-title">gabriel@dev: ~</span>
-</div>
-<div class="terminal-body" id="terminalBody">
-<div class="terminal-output" id="terminalOutput" aria-live="polite" aria-relevant="additions">
-<p style="color: var(--accent-color);">Bem-vindo! Digite um comando abaixo. Comandos disponíveis:</p>
-<p id="listaComandosInicial"></p>
-</div>
-</div>
-<form class="prompt-line" id="terminalForm">
-<label for="terminalInput" class="sr-only">Digite um comando para o terminal</label>
-<span class="prompt-symbol" aria-hidden="true">gabriel@dev:~$</span>
-<input type="text" id="terminalInput" class="terminal-input" autocomplete="off" autocapitalize="off" spellcheck="false">
-<button type="submit" class="terminal-send-btn" id="terminalSendBtn">Enviar</button>
-</form>
-<div class="mini-game-overlay" id="miniGameOverlay" role="dialog" aria-label="Mini-jogo secreto">
-<button type="button" class="mini-game-close" id="miniGameCloseBtn" aria-label="Fechar mini-jogo">✕</button>
-<canvas id="miniGameCanvas" width="600" height="150" role="img" aria-label="Área do mini-jogo: pule os obstáculos"></canvas>
-<p class="mini-game-info" id="miniGameInfo">Espaço/toque para pular · Esc para sair</p>
-</div>
-</div>
-
-<div class="spotify-container">
-<iframe src="https://open.spotify.com/embed/playlist/6l0TudKdY56i8gGNvGkunN?utm_source=generator&theme=0" width="100%" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist do Spotify de Gabriel"></iframe>
-</div>
-
-<footer class="site-footer">
-<p>© <span id="anoAtual">2026</span> Gabriel Melo Silva. Feito com HTML, CSS e JavaScript.</p>
-<p>
-<a href="#topo">Voltar ao topo</a> ·
-<a href="https://github.com/melo2607" target="_blank" rel="noopener noreferrer">GitHub</a> ·
-<a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-</p>
-</footer>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+            <span class="terminal-title">gabriel@dev: ~</span>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+            <div class="terminal-output" id="terminalOutput">
+                <p style="color: var(--accent-color);">Bem-vindo! Digite um comando (ex: <b>interestelar</b>, <b>help</b>):</p>
+            </div>
+        </div>
+        <form class="prompt-line" id="terminalForm">
+            <label for="terminalInput" class="sr-only">Digite um comando</label>
+            <span class="prompt-symbol">gabriel@dev:~$</span>
+            <input type="text" id="terminalInput" class="terminal-input" autocomplete="off">
+            <button type="submit" class="terminal-send-btn">Enviar</button>
+        </form>
+    </div>
 </main>
 
 <script>
-        document.getElementById('anoAtual').textContent = new Date().getFullYear();
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+    });
 
-        const themeBtn = document.getElementById('themeBtn');
-        const themeThumbIcon = themeBtn.querySelector('.theme-switch-thumb i');
-        const themeLabel = document.getElementById('themeLabel');
-        const THEME_KEY = 'gabriel-site-theme';
+    const terminalForm = document.getElementById('terminalForm');
+    const terminalInput = document.getElementById('terminalInput');
+    const terminalOutput = document.getElementById('terminalOutput');
+    const terminalBody = document.getElementById('terminalBody');
 
-        function aplicarTema(claro, salvar) {
-            document.body.classList.toggle('light-mode', claro);
-            themeBtn.setAttribute('aria-pressed', String(claro));
-            themeThumbIcon.className = claro ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-            themeLabel.textContent = claro ? 'claro' : 'escuro';
-            themeBtn.setAttribute('aria-label', claro ? 'Alternar para tema escuro' : 'Alternar para tema claro');
-            if (salvar) {
-                try {
-                    localStorage.setItem(THEME_KEY, claro ? 'claro' : 'escuro');
-                } catch (err) {
-                }
-            }
+    const textoAjuda = `Comandos disponíveis: <br><b>interestelar</b> — citação do filme<br><b>help</b> — mostra esta lista<br><b>clear</b> — limpa a tela`;
+
+    const systemCommands = {
+        'help': textoAjuda,
+        'comandos': textoAjuda,
+        'clear': 'CLEAR',
+        'interestelar': 'Não adentre a boa noite apenas com ternura, A velhice queima e clama ao cair do dia, Fúria, fúria contra a luz que já não fulgura. Embora os sábios, no fim da vida, saibam que é a treva que perdura...'
+    };
+
+    function removerAcentos(str) {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    const systemCommandsNormalizados = {};
+    Object.keys(systemCommands).forEach(chave => {
+        systemCommandsNormalizados[removerAcentos(chave)] = chave;
+    });
+
+    function appendLine(html, tipo) {
+        const p = document.createElement('p');
+        if (tipo === 'erro') p.style.color = '#ff8478';
+        p.innerHTML = html;
+        terminalOutput.appendChild(p);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
+    terminalForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const rawVal = terminalInput.value.trim();
+        const inputVal = rawVal.toLowerCase();
+        if (rawVal === '') return;
+
+        appendLine(`<span class="prompt-symbol">gabriel@dev:~$</span> ${rawVal}`, 'comando');
+        terminalInput.value = '';
+
+        const inputSemAcento = removerAcentos(inputVal);
+        const chaveResolvida = systemCommandsNormalizados[inputSemAcento];
+
+        if (inputVal === 'clear') {
+            terminalOutput.innerHTML = '';
+        } else if (chaveResolvida !== undefined) {
+            const resposta = systemCommands[chaveResolvida];
+            appendLine(typeof resposta === 'function' ? resposta() : resposta);
+        } else {
+            appendLine(`comando não encontrado: ${rawVal} — digite "help" para ver a lista.`, 'erro');
         }
-
-        (function iniciarTema() {
-            let preferencia = null;
-            try {
-                preferencia = localStorage.getItem(THEME_KEY);
-            } catch (err) {
-            }
-            if (preferencia === 'claro') {
-                aplicarTema(true, false);
-            } else if (preferencia === 'escuro') {
-                aplicarTema(false, false);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                aplicarTema(true, false);
-            }
-        })();
-
-        themeBtn.addEventListener('click', () => {
-            aplicarTema(!document.body.classList.contains('light-mode'), true);
-        });
-
-        function tocarSomDeSusto(duracaoSegundos) {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            const lfo = ctx.createOscillator();
-            const lfoGain = ctx.createGain();
-            const gain = ctx.createGain();
-
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(220, ctx.currentTime);
-
-            lfo.type = 'sine';
-            lfo.frequency.setValueAtTime(6, ctx.currentTime);
-            lfoGain.gain.setValueAtTime(90, ctx.currentTime);
-            lfo.connect(lfoGain);
-            lfoGain.connect(osc.frequency);
-
-            const fim = ctx.currentTime + duracaoSegundos;
-            gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.5, ctx.currentTime + 0.06);
-            gain.gain.setValueAtTime(0.5, fim - 0.4);
-            gain.gain.exponentialRampToValueAtTime(0.001, fim);
-
-            osc.connect(gain).connect(ctx.destination);
-            osc.start();
-            lfo.start();
-            osc.stop(fim);
-            lfo.stop(fim);
-        }
-
-        const sustoOverlay = document.getElementById('sustoOverlay');
-        const sustoImg = document.getElementById('sustoImg');
-        const prefereMenosMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const SUSTO_DURACAO_MS = 5000;
-
-        sustoImg.addEventListener('error', () => {
-            const fallback = document.createElement('span');
-            fallback.className = 'susto-face';
-            fallback.id = 'sustoImg';
-            fallback.textContent = '👹';
-            sustoImg.replaceWith(fallback);
-        }, { once: true });
-
-        function dispararSusto() {
-            if (prefereMenosMovimento) return;
-
-            sustoOverlay.classList.remove('susto-ativo');
-            document.body.classList.remove('susto-shake');
-            void sustoOverlay.offsetWidth;
-
-            sustoOverlay.classList.add('susto-ativo');
-            document.body.classList.add('susto-shake');
-
-            try {
-                tocarSomDeSusto(SUSTO_DURACAO_MS / 1000);
-            } catch (err) {
-            }
-
-            setTimeout(() => {
-                sustoOverlay.classList.remove('susto-ativo');
-                document.body.classList.remove('susto-shake');
-            }, SUSTO_DURACAO_MS);
-        }
-
-        const terminalForm = document.getElementById('terminalForm');
-        const terminalInput = document.getElementById('terminalInput');
-        const terminalSendBtn = document.getElementById('terminalSendBtn');
-        const terminalOutput = document.getElementById('terminalOutput');
-        const terminalBody = document.getElementById('terminalBody');
-
-        let matrixEncerrada = false;
-        const comandosMatrix = [
-            'segredo', 'secret',
-            'coelho', 'rabbit hole',
-            'pilula', 'pill',
-            'pilula azul', 'blue pill',
-            'pilula vermelha', 'red pill'
-        ];
-
-        const pilhaDePiadas = [
-            'Por que o esqueleto não brigou com ninguém? Porque ele não tinha estômago pra isso.',
-            'O que a impressora disse pro papel? "Ai, você me tira do sério!"',
-            'Por que o tomate ficou vermelho? Porque viu a salada se trocar.',
-            'O que é, o que é: quanto mais se tira, maior fica? O buraco.',
-            'Por que os passarinhos voam para o sul no inverno? Porque é longe demais para ir andando.',
-            'O que o pato falou pra pata? "Vem quá, pata!"',
-            'Por que a Maria foi correndo pro banco? Porque ela viu o Joaquim (rio) passando.',
-            'O que um oceano disse pro outro? Nada, eles só deram um "wave".',
-            'Por que o livro de matemática está sempre triste? Porque ele tem muitos problemas.',
-            'O que é um pontinho verde na parede? Uma ervilha em pé.',
-            'Por que a galinha atravessou a rua? Para chegar do outro lado (e ninguém nunca fica satisfeito com essa resposta).',
-            'Toc toc! Quem é? Cadê! Cadê quem? Cadê aquela piada boa que eu ia contar?',
-        ];
-        let ultimaPiadaIndex = -1;
-        function pegarPiadaAleatoria() {
-            let i;
-            do {
-                i = Math.floor(Math.random() * pilhaDePiadas.length);
-            } while (i === ultimaPiadaIndex && pilhaDePiadas.length > 1);
-            ultimaPiadaIndex = i;
-            return pilhaDePiadas[i];
-        }
-
-        const pilhaDeCuriosidades = [
-            'O termo "bug" em computação vem de uma mariposa de verdade presa num relé em 1947.',
-            'O FRC (FIRST Robotics Competition) foi criado em 1992 por Dean Kamen.',
-            'A primeira versão do Git foi escrita pelo Linus Torvalds em cerca de 2 semanas.',
-            'PID significa Proporcional, Integral e Derivativo — as 3 partes do controlador.',
-            'A primeira linguagem de programação de alto nível foi o Fortran, de 1957.',
-        ];
-        let ultimaCuriosidadeIndex = -1;
-        function pegarCuriosidadeAleatoria() {
-            let i;
-            do {
-                i = Math.floor(Math.random() * pilhaDeCuriosidades.length);
-            } while (i === ultimaCuriosidadeIndex && pilhaDeCuriosidades.length > 1);
-            ultimaCuriosidadeIndex = i;
-            return pilhaDeCuriosidades[i];
-        }
-
-        const textoAjuda = `Todos os comandos disponíveis (tente descobrir os comandos secretos também!!):<br>
-<b style="color: var(--accent-color);">about</b> — quem é o Gabriel<br>
-<b style="color: var(--accent-color);">skills</b> — tecnologias que ele usa<br>
-<b style="color: var(--accent-color);">projects</b> — link do GitHub<br>
-<b style="color: var(--accent-color);">movies</b> — link do Letterboxd<br>
-<b style="color: var(--accent-color);">piada</b> (ou <b style="color: var(--accent-color);">joke</b>) — conta uma piada pronta<br>
-<b style="color: var(--accent-color);">curiosidade</b> — um fato rápido de tech/robótica<br>
-<b style="color: var(--accent-color);">calc 2+2</b> — calculadora simples<br>
-<b style="color: var(--accent-color);">history</b> — mostra os últimos comandos digitados<br>
-<b style="color: var(--accent-color);">sudo</b> — tente virar administrador<br>
-<b style="color: var(--accent-color);">ls</b> — lista arquivos falsos<br>
-<b style="color: var(--accent-color);">date</b> — data e hora atual<br>
-<b style="color: var(--accent-color);">clear</b> — limpa a tela<br>
-<b style="color: var(--accent-color);">help</b> (ou <b style="color: var(--accent-color);">comandos</b>) — mostra essa lista<br>
-<span style="color: var(--text-dim); font-size: 0.85em;">Dica: use as setas ↑ e ↓ para repetir comandos digitados antes.</span>`;
-
-        const systemCommands = {
-            'clear': 'CLEAR',
-            'cls': 'CLEAR',
-            'help': textoAjuda,
-            'comandos': textoAjuda,
-            'about': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
-            'skills': 'HTML, CSS, Python, JavaScript e GitHub.',
-            'projects': `Confira meus repositórios em <a href="https://github.com/melo2607" target="_blank" rel="noopener noreferrer">github.com/melo2607</a>.`,
-            'movies': `Minhas críticas de filmes estão no Letterboxd: <a href="https://boxd.it/fHchF" target="_blank" rel="noopener noreferrer">boxd.it/fHchF</a>.`,
-            'piada': () => pegarPiadaAleatoria(),
-            'joke': () => pegarPiadaAleatoria(),
-            'piadinha': () => pegarPiadaAleatoria(),
-            'conta uma piada': () => pegarPiadaAleatoria(),
-            'me conte uma piada': () => pegarPiadaAleatoria(),
-            'curiosidade': () => pegarCuriosidadeAleatoria(),
-            'whoami': 'gabriel',
-            'sudo': 'Permissão negada: aqui quem manda sou eu.',
-            'ls': 'oxe ta achando q eu sou falso? vc que é',
-            'date': () => new Date().toLocaleString('pt-BR'),
-            'neofetch': `<b style="color: var(--accent-color);">gabriel@dev</b><br>------------------<br>OS: Terminal do site<br>Stack: HTML / CSS / JS<br>Uptime: sempre codando`,
-            'matrix': 'Siga o coelho branco...',
-            'gabriel': 'Esse sou eu',
-            'aline': 'E eu chamei... chamei Aline, estou aqui! e eu chorei... chorei um mar só por ti!',
-            'ademir': 'o adm',
-            'alicia': 'alicia, vai limpa o coco do pitoco',
-            'pitoco': 'meu nego preto',
-            '67': 'Não começa',
-            'bora bill': 'Bora fi do bill',
-            'a': 'b',
-            'zap': 'não fale o nome do monstro... vai que ele aparece...',
-            'comunismo': 'gosto',
-            'caio': 'cobrakaio',
-            'sonhei com a imagem tua': 'caguei na cama, joguei na rua',
-            'a bosta endureceu': 'passou um carro, furou o pneu',
-            'chamaram a viatura': 'examinaram, era bosta pura',
-            'me levaram pro xadrez': 'fiquei com raiva, caguei outra vez',
-            'miku':'im thinking miku, miku, ooeeoo',
-            'baguette': 'quasonn',
-            'betinha': 'cecé channn~',
-            'nunca mais': 'never again',
-            'the': 'and',
-
-            'cansei': 'Já tentou desligar e ligar de novo?',
-            '404': 'Erro 404.',
-            'calma calabreso': 'Calma aí, amostradinho!',
-            'receba': 'Luva vai ser pai tropa!',
-            'o que e o amor': "Baby don't hurt me, don't hurt me, no more...",
-            'paz': 'A paz que você procura está em fechar todas as abas do navegador.',
-
-            'git': 'git commit -m "fiz gambiarra e funcionou, não mexa"',
-            'hello world': 'Que bonitinho cara.',
-            'python': 'Essa eu sou fluente',
-            'javascript': 'Vamo faze um site!',
-            'css': 'Tentando centralizar uma div desde 2020.',
-
-            'frc': 'FIRST Robotics Competition: onde o sono é opcional e a paixão por robôs é gigante!',
-            'olhei pro ceu e o que eu vi': 'Mega harpy ta aqui!',
-            'e ta voando o pais': 'mega harpy ta aqui',
-            'e quando a gente torcer': 'a arena vai tremer',
-            'mega!': 'harpy!',
-            'pit': 'Atenção equipe: o robô precisa estar na arena em 2 minutos!',
-            'gracious professionalism': '...HEY',
-            'autonomous': 'O nosso AGORA funciona',
-
-            'ping': 'Pong! (Latência: 1ms)',
-            'konami': 'cima, cima, baixo, baixo, esquerda, direita, esquerda, direita, B A',
-            'halo': 'Finish the fight.',
-            'portal': 'The cake is a lie.',
-            'star wars': 'Que a Força esteja com você.',
-            'batman': 'O batman não tem limites.',
-            'minecraft': 'E o universo disse eu te amo E o universo disse que você jogou bem o jogo E o universo disse que tudo o que você precisa está dentro de você E o universo disse que você é mais forte do que imagina E o universo disse que você é a luz do dia E o universo disse que você é a noite E o universo disse que as trevas contra as quais você luta estão dentro de você E o universo disse que a luz que você procura está dentro de você E o universo disse que você não está sozinho E o universo disse que você não está separado de qualquer outra coisa E o universo disse que você é o universo provando a si mesmo, falando consigo mesmo, lendo o seu próprio código E o universo disse eu te amo porque você é amor. E o jogo acabou e o jogador acordou do sonho. E o jogador começou um novo sonho. E o jogador sonhou novamente, sonhou melhor. E o jogador era o universo. E o jogador era amor. Você é o jogador. Acorde.',
-
-            'clima': 'Não sei, to no quarto programando ou no senai estudando',
-            'contact': 'Mande uma mensagem no meu Instagram!',
-            'contato': 'Mande uma mensagem no meu Instagram!',
-            'version': '1.0 porque nao fiz mais nenhum',
-            'redes': 'GitHub: melo2607 | Letterboxd: boxd.it/fHchF',
-            'moeda': () => Math.random() < 0.5 ? 'Deu CARA!' : 'Deu COROA!',
-            'dado': () => `Você tirou o número: ${Math.floor(Math.random() * 6) + 1}`,
-
-            'oi': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
-            'ola': 'Suave? Digite "help" para ver a lista de comandos.',
-            'tudo bem?': 'Tudo rodando com varios erros! E com você?',
-            'qual o sentido da vida': '42.',
-            'rm -rf': 'Nem tente! O sistema de defesa dos eua bloqueou esse comando.',
-            'sudo rm -rf /': 'Tentativa de invasão registrada... Brincadeira, mas não faça isso!',
-            'ia': 'Ta loco',
-
-            'segredo': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
-            'secret': 'O verdadeiro segredo esta na toca do coelho. Digite "coelho".',
-            'coelho': 'Voce encontrou a entrada. Digite "pilula" para fazer sua escolha.',
-            'rabbit hole': 'Voce encontrou a entrada. Digite "pilula" para fazer sua escolha.',
-            'pilula': 'Escolha seu caminho: digite "pilula azul" ou "pilula vermelha". Se você tomar a pílula azul, a história termina, você volta e acredita no que quiser acreditar; se tomar a pílula vermelha, você fica no País das Maravilhas, e eu te mostro até onde vai a toca do coelho.',
-            'pill': 'Escolha seu caminho: digite "pilula azul" ou "pilula vermelha". Se você tomar a pílula azul, a história termina, você volta e acredita no que quiser acreditar; se tomar a pílula vermelha, você fica no País das Maravilhas, e eu te mostro até onde vai a toca do coelho.',
-            'pilula vermelha': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
-            'red pill': 'Bem-vindo ao mundo real. Conexao com a Matrix estabelecida.',
-
-            'inicio': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
-            'start': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
-            'home': 'Voce esta na raiz do sistema. Há duas pastas visiveis: digite "pasta1" ou "pasta2".',
-            'pasta1': 'Caminho sem saida. Arquivo corrompido. Digite "inicio" para voltar.',
-            'folder1': 'Caminho sem saida. Arquivo corrompido. Digite "inicio" para voltar.',
-            'pasta2': 'Voce encontrou um arquivo protegido. Digite "descriptografar" para tentar ler.',
-            'folder2': 'Voce encontrou um arquivo protegido. Digite "descriptografar" para tentar ler.',
-            'descriptografar': 'Acesso liberado! A chave mestra e o comando "melo2607".',
-            'decrypt': 'Acesso liberado! A chave mestra e o comando "melo2607".',
-            'melo2607': 'Voce chegou ao centro do sistema de Gabriel. Parabens por explorar tudo!',
-
-            'bug': 'Um erro foi encontrado no sistema. Digite "inspect" para investigar.',
-            'inspect': 'Erro na linha 42: funcao indefinida. Digite "fix" para aplicar o patch.',
-            'fix': 'Patch aplicado com sucesso. O sistema voltou ao estado normal.',
-
-            'pwd': '/home/gabriel',
-            'cd': 'bash: cd: comando desabilitado neste terminal',
-            'mkdir': 'Pasta criada (mentira, isso e so um site).',
-            'cat': 'Use "ls" para ver os arquivos primeiro.',
-            'echo': 'Ecooo... ecooo... ecooo...',
-            'man': 'Nao ha manual.',
-            'uptime': () => new Date().toLocaleString('pt-BR'),
-            'htop': 'CPU: 4% | Processos: pensando em projetos novos',
-            'traceroute': 'Todos os caminhos levam ao GitHub: github.com/melo2607',
-            'ifconfig': 'Conectado. Sinal forte. jaja cai.',
-            'id': 'uid=1(gabriel) gid=1(devs) grupos=1(devs),2(robotica)',
-            'uname': 'GabrielOS v1.0',
-            'kernel': 'GabrielOS Kernel 1.0 — estavel, na maioria das vezes.',
-            'root': 'Acesso root negado. Aqui so eu mando.',
-            'admin': 'Acesso root negado. Aqui so eu mando.',
-            'hack': 'ta se achando ne.',
-            'hackear': 'coitado',
-            'exit': 'Nao ha como sair, so fechar a aba mesmo.',
-            'sair': 'Nao ha como sair, so fechar a aba mesmo.',
-            'quit': 'Nao ha como sair, so fechar a aba mesmo.',
-
-            'fala': 'Fala tu! Suave? Digite "help" para ver os comandos.',
-            'fala dele': 'É o homem, não tem jeito!',
-            'salve': 'Salve! De boa por aí?',
-            'opa': 'Opa! De boa? Manda um comando aí.',
-            'suave?': 'Tranquilo por aqui e com você?',
-            'suave': 'Tranquilidade pura.',
-            'de boa?': 'De boa demais! E por aí?',
-            'tudo certo?': 'Tudo rodando 100% sem falhas.',
-            'tudo bom?': 'Melhor agora que você passou por aqui!',
-            'como vai?': 'Vou firme e forte, la ele!',
-            'beleza?': 'Beleza! O que manda hoje?',
-            'como voce esta?': 'de boa por aqui, só acompanhando o código.',
-            'como esta?': 'Tudo tranquilo e sob controle.',
-            'manda um salve': 'eu nao',
-            'nada': 'Então suave, fica à vontade por aí!',
-            'de nada': 'Tamo junto! Precisando, só chamar.',
-            'tmj': 'Tamo junto demais!',
-            'tamojunto': 'Fechou! Tamo junto.',
-            'boa': 'Boa! Tmj.',
-            'top': 'Show de bola!',
-            'show': 'Top demais!',
-            'massa': 'Demais né?',
-            'massa!': 'Que bom que curtiu!',
-            'legal': 'Massa demais, né?',
-            'caramba': 'Pois é, doideira!',
-            'nossa': 'Eita, que foi?',
-            'eita': 'Eita pega!',
-            'oxe': 'Oxe, o que houve?',
-            'vish': 'Fiz besteira no código? Não me assusta!',
-            'o que conta?': 'Só estudando, criando projetos e atualizando esse site!',
-            'novidades?': 'Sempre testando ideias novas de programação.',
-            'qual a boa?': 'A boa é explorar os comandos do terminal!',
-            'ta fazendo o que?': 'Esperando você mandar o próximo comando.',
-            'ta ai?': 'Sempre aqui, online e pronto pra responder.',
-            'esta ai?': 'Firme e forte no terminal!',
-            'manda boa': 'A boa é digitar "curiosidade" ou "moeda" pra passar o tempo.',
-            'tudo bem': 'Tudo ótimo por aqui! Espero que por aí também.',
-            'tudo joia?': 'Tudo joia! Só na paz por aqui.',
-
-            'quem e voce': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
-            'who are you': 'Gabriel | Estudante de programação, cursando Análise e desenvolvimento de sistemas.',
-            'o que voce faz': 'Estudo desenvolvimento web e participo da equipe de robotica Mega Harpy.',
-            'what do you do': 'Estudo desenvolvimento web e participo da equipe de robotica Mega Harpy.',
-            'idade': 'Prefiro nao revelar isso num terminal publico',
-            'age': 'Prefiro nao revelar isso num terminal publico',
-            'curso': 'Análise e Desenvolvimento de Sistemas.',
-            'course': 'Análise e Desenvolvimento de Sistemas.',
-            'escola': 'Estudo e também faço parte da equipe de robótica FRC Mega Harpy.',
-            'school': 'Estudo e também faço parte da equipe de robótica FRC Mega Harpy.',
-            'hobby': 'Programar, assistir filmes e mexer com robótica.',
-            'hobbies': 'Programar, assistir filmes e mexer com robótica.',
-            'ai': 'ai ai aiaiaiai assim você mata o papai',
-
-            'instagram': `Me segue no insta: <a href="https://www.instagram.com/g_sbriel/" target="_blank" rel="noopener noreferrer">@g_sbriel</a>.`,
-            'tiktok': `Me segue no tiktok: <a href="https://www.tiktok.com/@.gsbriel" target="_blank" rel="noopener noreferrer">@g.sbriel</a>.`,
-            'linkedin': `Meu Linkedin: <a href="https://www.linkedin.com/in/gabriel-melo-silva-404a21385" target="_blank" rel="noopener noreferrer">Gabriel Melo Silva</a>.`,
-            'github': `Meus projetos: <a href="https://github.com/melo2607" target="_blank" rel="noopener noreferrer">github.com/melo2607</a>.`,
-            'letterboxd': `Minhas críticas de filmes estão no Letterboxd: <a href="https://boxd.it/fHchF" target="_blank" rel="noopener noreferrer">boxd.it/fHchF</a>.`,
-            'spotify': 'Da uma olhada na playlist tocando ali embaixo do terminal',
-            'musica': 'Da uma olhada na playlist tocando ali embaixo do terminal',
-            'music': 'Da uma olhada na playlist tocando ali embaixo do terminal',
-
-            'hello': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
-            'hi': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
-            'hey': 'Olá! Digite "help" ou "comandos" para ver o que posso fazer.',
-            'bom dia': 'Bom dia!',
-            'good morning': 'Bom dia!',
-            'boa tarde': 'Boa tarde! Codando ou só de passagem?',
-            'good afternoon': 'Boa tarde! Codando ou só de passagem?',
-            'boa noite': 'Boa noite! Hora perfeita pra revisar código.',
-            'good night': 'Boa noite! Hora perfeita pra revisar código.',
-            'tchau': 'Até mais! Valeu por passar aqui.',
-            'bye': 'Até mais! Valeu por passar aqui.',
-            'adeus': 'Até mais! Valeu por passar aqui.',
-            'obrigado': 'Disponha!',
-            'obrigada': 'Disponha!',
-            'thanks': 'Disponha!',
-            'thank you': 'Disponha!',
-            'valeu': 'Eu que agradeço!',
-
-            'skibidi': 'Nem vem com isso por aqui.',
-            'sigma': 'Foco nos estudos e no código, sempre.',
-            'la ele': 'Lá ele 1000x!',
-            'cavalo': 'CAVALO.',
-            'queota': 'Não tankei.',
-            'super mario': "It's-a me, Gabriel!",
-            'rickroll': 'Never gonna give you up, never gonna let you down...',
-            'barbie': 'Hi Barbie! Hi Ken!',
-            'oppenheimer': 'Agora eu me tornei o Morte, o destruidor de compilações.',
-
-            'stack overflow': 'Copia e cola com moderação, hein!',
-            'bug no meu codigo': 'Coloca um console.log() até achar.',
-            'gambiarra': 'Não é bug, é funcionalidade alternativa temporária.',
-            'java': 'System.out.println("Cara vai estudar linguagem de verdade plmds");',
-            'c++': 'Cuidado com os ponteiros pra não vazar memória!',
-            'php': 'Ainda move metade da web, respeite o idoso!',
-            'sql': 'SELECT * FROM conhecimento WHERE tema = "tudo";',
-            'docker': 'Na minha máquina funciona! Então vamos rodar sua máquina.',
-            'linux': 'Tux manda lembranças. Já deu um sudo apt update hoje?',
-            'windows': 'Reiniciando para atualizar 1 de 45...',
-            'html': 'HTML não é linguagem de programação, mas é o esqueleto de tudo!',
-            'vscode': 'O melhor editor, sem discussão (ou quase).',
-
-            'cinema': 'Dá uma olhada no meu Letterboxd para ver o que ando assistindo!',
-            'interstellar': 'Um dia aqui são 7 anos na Terra... tipo tentar arrumar um bug de CSS.',
-            'the batman': 'I am the vengeance... I am the night!',
-            'breaking bad': 'Jesse, precisamos codar!',
-            'stranger things': 'Bem-vindo ao Mundo Invertido do terminal.',
-            'lotr': 'One code to rule them all.',
-            'lord of the rings': 'Um anel para a todos governar...',
-            'avengers': 'Devs... avante!',
-            'fight club': 'Primeira regra: você não fala sobre o código em produção.',
-
-            '42': 'A resposta para a vida, o universo e tudo mais.',
-            'easter egg': 'Você encontrou um! Mas ainda existem outros escondidos...',
-            'admin123': 'Senha fraca detectada. Tente novamente!',
-            'password': '123456 (por favor, não use essa senha de verdade).',
-            'senha': 'Quer colar minha senha no seu terminal?',
-            'cofre': 'O código do cofre é o ano que a gente tá.',
-            'desafio': 'Tente adivinhar todos os comandos secretos sem olhar o código fonte!',
-            'alien': 'Eles estão entre nós... e usam Linux.',
-            'area 51': 'Acesso restrito. MIB notificado.',
-            'quem veio primeiro': 'O ovo, a galinha ou o bug no código?',
-            'dinheiro': 'Se eu tivesse bastante, não estaria só estudando ADS, estaria numa praia.',
-            'segunda feira': 'Força guerreiro, a semana tá só começando.',
-            'sexta': 'Sextou! Mas antes... faz o commit.',
-            'sono': 'Ir dormir é para quem não tem código pra rodar.',
-            'vibe': 'Só no sapatinho, mantendo a calma e codando.',
-
-            'facismo': 'Não fecho com a direita imunda.',
-            'panteras negras': 'Queria tanto um desse br ( revive fred hempton pff )',
-            'sbc': 'sdds da minha casa',
-            'dom casmurro': 'slk livraço mano',
-            
-
-            'async': 'Espere a promessa ser resolvida sem travar a aplicação.',
-            'await': 'Aguarde um momento, o processamento está em andamento...',
-            'agile': 'Entregando valor em ciclos curtos e contínuos.',
-            'boolean': 'Verdadeiro ou falso, sem meio termo no código.',
-            'build': 'Empacotando todo o projeto para enviar para produção.',
-            'cookies': 'Pequenos blocos de dados guardados no navegador.',
-            'clean code': 'Código limpo se lê como um bom texto.',
-            'depurar': 'Caçando o erro até o sistema voltar ao normal.',
-            'dom': 'Document Object Model: a árvore que representa seu HTML no JS.',
-            'escopo': 'Onde suas variáveis nascem, vivem e morrem.',
-            'exception': 'Um erro inesperado capturado com try/catch.',
-            'function': 'Um bloco de código reutilizável projetado para uma tarefa específica.',
-            'flexbox': 'Ajustando elementos na tela sem perder o juízo.',
-            'grid': 'Layouts bidimensionais complexos resolvidos com poucas linhas.',
-            'github pages': 'Hospedagem gratuita e rápida para seus sites estáticos.',
-            'http': 'O protocolo fundamental de comunicação da web.',
-            'hoisting': 'Mover declarações para o topo antes de executar o código.',
-            'import': 'Trazendo recursos de outros módulos para o projeto.',
-            'index.html': 'O ponto de partida de quase toda a navegação web.',
-            'jwt': 'Tokens seguros para autenticar requisições de usuários.',
-            'log': 'Registrando o histórico de execução para entender o fluxo.',
-            'localstorage': 'Guardando dados no navegador que persistem mesmo após fechar a aba.',
-            'middleware': 'A camada que processa a requisição entre a chegada e a resposta final.',
-            'mock': 'Simulando dados para testar sua aplicação com segurança.',
-            'npm': 'Node Package Manager: o ecossistema de bibliotecas JavaScript.',
-            'object': 'Uma coleção de propriedades chave e valor.',
-            'promise': 'Representa um valor que pode estar disponível agora, no futuro ou nunca.',
-            'parsing': 'Analisando e convertendo uma estrutura de dados em outra.',
-            'repository': 'Onde todo o histórico do seu projeto fica salvo.',
-            'rest': 'Padrão arquitetural limpo para construção de APIs.',
-            'string': 'Uma sequência de caracteres entre aspas.',
-            'syntax error': 'Esqueceu de fechar uma chave ou parêntese de novo?',
-            'try catch': 'Tente executar; se der errado, capture e trate o erro suavemente.',
-            'versionamento': 'Controlando as alterações do seu projeto ao longo do tempo.',
-            'abstracao': 'Esconder os detalhes complexos e mostrar só o que importa.',
-            'acessibilidade': 'Garantindo que o site seja usável por absolutamente qualquer pessoa.',
-            'antipattern': 'Soluções que parecem boas no começo, mas viram uma grande dor de cabeça.',
-            'assincrono': 'Processando tarefas em segundo plano sem travar o sistema.',
-            'backlog': 'A lista infinita de coisas legais pra implementar no projeto.',
-            'benchmark': 'Medindo a velocidade e a eficiência do código na prática.',
-            'binario': '01000111 01000001 01000010 01001110 01001001 01000101 01001100',
-            'breakpoint': 'Onde a execução do código pausa pra gente entender o que tá acontecendo.',
-            'cache': 'Guardando o que já foi processado pra entregar super rápido na próxima.',
-            'callback': 'Uma função passada como argumento para ser chamada mais tarde.',
-            'classe': 'O molde para criar objetos com características e métodos em comum.',
-            'closure': 'Uma função que se lembra do escopo onde foi criada.',
-            'componente': 'Blocos reutilizáveis que juntos constroem uma interface completa.',
-            'constante': 'Um valor seguro que não muda durante a execução do programa.',
-            'deploy': 'Saindo do ambiente de testes e colocando o projeto no ar para o mundo!',
-            'dicionario': 'Onde cada palavra tem sua chave e seu valor correspondente.',
-            'dns': 'A lista de contatos da internet que traduz domínios em IPs.',
-            'encapsulamento': 'Protegendo os dados internos de um objeto contra acessos indevidos.',
-            'endpoint': 'A URL específica onde a API recebe e entrega dados.',
-            'express': 'Framework rápido e minimalista para Node.js.',
-            'feature': 'Nova funcionalidade pronta para ser usada!',
-            'fork': 'Criando sua própria cópia de um projeto open source.',
-            'git pull': 'Baixando as novidades do repositório remoto.',
-            'git push': 'Enviando as alterações para a nuvem.',
-            'hash': 'Uma assinatura única e irreversível gerada a partir de dados.',
-            'header': 'O cabeçalho que carrega informações essenciais da requisição.',
-            'https': 'Comunicação criptografada para proteger as informações que trafegam na web.',
-            'ide': 'Ambiente de desenvolvimento integrado: nossa oficina de trabalho.',
-            'input': 'A informação que entra para o sistema processar.',
-            'instancia': 'Um objeto real criado a partir do molde de uma classe.',
-            'kanban': 'Cartões no quadro mostrando o fluxo: A Fazer, Em Progresso e Concluído.',
-            'lambda': 'Funções anônimas pequenas e objetivas.',
-            'library': 'Conjunto de ferramentas prontas pra você chamar quando precisar.',
-            'lint': 'Analisando o código automaticamente em busca de erros de estilo.',
-            'metodo': 'Uma função que pertence a um objeto ou classe.',
-            'modules': 'Dividindo o código em arquivos menores para manter tudo organizado.',
-            'nuvem': 'Apenas o computador de outra pessoa rodando seu sistema.',
-            'operator': 'Os símbolos que realizam cálculos, comparações e operações de lógica.',
-            'output': 'O resultado gerado e exibido após o processamento.',
-            'padrao de projeto': 'Soluções consolidadas para problemas recorrentes no desenvolvimento.',
-            'parametro': 'O valor esperado por uma função para realizar sua tarefa.',
-            'performance': 'Carregamento instantâneo e respostas sem travamento.',
-            'polimorfismo': 'Objetos diferentes respondendo à mesma chamada de formas específicas.',
-            'production': 'Ambiente final onde os usuários reais utilizam a aplicação.',
-            'query': 'Uma busca ou consulta feita no banco de dados.',
-            'queue': 'Estrutura de dados em fila: o primeiro a entrar é o primeiro a sair.',
-            'renderizar': 'Transformando instruções e dados em elementos visíveis na tela.',
-            'requisicao': 'O pedido que o cliente envia para o servidor.',
-            'response': 'A resposta que o servidor devolve para o cliente.',
-            'sandbox': 'Um ambiente isolado e seguro para testar ideias sem quebrar nada.',
-            'sintaxe': 'As regras gramaticais da linguagem de programação.',
-            'stack': 'Estrutura de dados em pilha: o último a entrar é o primeiro a sair.',
-            'tabela': 'Dados dispostos em linhas e colunas bem definidas.',
-            'tags': 'As marcações do HTML que estruturam a página.',
-            'template': 'O modelo base para a construção de novas telas.',
-            'teste unitario': 'Garantindo que cada pequena parte do código funciona isoladamente.',
-            'undefined': 'Variável declarada que ainda não recebeu nenhum valor.',
-            'upload': 'Enviando arquivos do seu computador para o servidor.',
-            'validacao': 'Conferindo se os dados inseridos estão corretos antes de salvar.',
-            'webhook': 'Notificação automática enviada de um sistema para outro assim que algo acontece.',
-            'workflow': 'O fluxo de trabalho bem estruturado da ideia até o deploy.',
-            'zero bugs': 'A meta diária de todo desenvolvedor.',
-            'interestelar': 'Não adentre a boa noite apenas com ternura, A velhice queima e clama ao cair do dia, Fúria, fúria contra a luz que já não fulgura. Embora os sábios, no fim da vida, saibam que é a treva que perdura, Pois suas palavras não mais capturam a centelha tardia. Não adentre a boa noite apenas com ternura, Fúria, fúria contra a luz que já não fulgura…',
-
-            'astronomia': 'Olhar para as estrelas é lembrar o quão gigante é o universo.',
-            'arte': 'Expressão humana em sua forma mais pura, seja numa pintura ou em um bom código.',
-            'ansiedade': 'Respira fundo. Um passo de cada vez.',
-            'animes': 'Qual o seu favorito? Um bom shonen sempre dá aquele gás.',
-            'academia': 'Treinar a mente é bom, mas mover o corpo também faz parte!',
-            'brasil': 'País do futebol, da zoeira sem fim e da criatividade infinita.',
-            'bateria': 'No celular: 15%. No corpo: precisando recarregar.',
-            'biblioteca': 'Tanto no código quanto na vida real: um lugar cheio de conhecimento guardado.',
-            'bicicleta': 'Duas rodas, vento no rosto e zero poluição.',
-            'ciencia': 'Perguntar, testar, errar, corrigir e descobrir. É assim que o mundo evolui.',
-            'criatividade': 'Conectar ideias que ninguém tinha pensado em juntar antes.',
-            'chuva': 'O som perfeito para se concentrar e focar em alguma tarefa.',
-            'churrasco': 'Domingo, família, amigos e uma boa resenha.',
-            'domingo': 'Aquele dia com gostinho de descanso e preparação pra semana.',
-            'desenho': 'Das tirinhas de jornal aos animes e animações 3D.',
-            'dublagem': 'A dublagem brasileira é, sem dúvidas, uma das melhores do mundo.',
-            'espaco': 'A fronteira final. O que será que existe além do que conseguimos ver?',
-            'espelho': 'Quem você vê do outro lado é o seu único concorrente real.',
-            'estudante': 'Aprender não termina quando a faculdade acaba, dura a vida toda.',
-            'estacoes': 'Verão pra pegar uma praia, inverno pra ficar suave em casa.',
-            'filosofia': 'Penso, logo existo. E às vezes nem sei o porquê.',
-            'fatos': 'Fatos não se importam com opiniões, mas a ciência ama novas descobertas.',
-            'fotografia': 'Um jeito de congelar um momento no tempo para sempre.',
-            'futuro': 'Ainda não chegou, então o foco é no que a gente faz agora.',
-            'gatos': 'eu',
-            'galaxia': 'Bilhões de estrelas girando juntas no meio do nada.',
-            'games': 'Nada como desligar do mundo e entrar em uma boa história interativa.',
-            'historia': 'Quem não conhece o passado está fadado a repetir os mesmos erros.',
-            'habitantes': 'Mais de 8 bilhões de pessoas e cada uma com uma história diferente.',
-            'humor': 'Rir dos próprios problemas deixa a caminhada bem mais leve.',
-            'ideia': 'Uma lâmpada que acende na cabeça nos momentos mais aleatórios.',
-            'improviso': 'Quem sabe faz ao vivo (ou ajeita no caminho).',
-            'inverno': 'Hora de tirar os casacos do armário e ficar bem coberto.',
-            'jogos de tabuleiro': 'Catan, Uno, Xadrez... a amizade à prova em cada rodada.',
-            'jornada': 'O destino importa, mas o caminho é onde a história realmente acontece.',
-            'livros': 'Portais para outros mundos que não precisam de tela nem de bateria.',
-            'lua': 'Sempre lá, mudando de fase e inspirando poetas e curiosos.',
-            'liberdade': 'Poder escolher o próprio caminho e assumir os resultados.',
-            'musica boa': 'Aquela que arrepia na primeira vez que você ouve.',
-            'mar': 'A imensidão da água e o barulho das ondas acalmam qualquer mente.',
-            'misterio': 'O universo tá cheio deles esperando alguém curioso o bastante para resolver.',
-            'meme': 'A linguagem universal da internet.',
-            'natureza': 'A engenharia mais perfeita que existe no planeta.',
-            'noite': 'Quando o mundo desacelera e as ideias começam a fluir melhor.',
-            'nostalgia': 'Lembrar de uma época simples e dar um sorriso sem perceber.',
-            'oceano': 'Conhecemos mais a superfície da Lua do que o fundo do nosso próprio mar.',
-            'otimismo': 'Acreditar que dá certo e fazer a sua parte pra acontecer.',
-            'praia': 'Sol, pé na areia e o barulho do mar.',
-            'passado': 'Uma boa escola, mas um péssimo lugar para morar.',
-            'pipoca': 'Acompanhamento obrigatório para um bom filme no fim de semana.',
-            'pensamento': 'A única coisa que ninguém consegue controlar por você.',
-            'quimica': 'Reações, elementos e a base de como a matéria se comporta.',
-            'quebra cabeca': 'Peça por peça, o resultado vai aparecendo no final.',
-            'respeito': 'A base para qualquer convivência, seja na internet ou fora dela.',
-            'rotina': 'Ter uma ajuda a ter foco, mas quebrar ela de vez em quando faz bem.',
-            'rock': 'Guitarras marcantes e energia no máximo.',
-            'sol': 'O reator nuclear natural que mantém tudo funcionando por aqui.',
-            'silencio': 'Às vezes é a melhor resposta e o melhor descanso.',
-            'snooze': 'Só mais 5 minutinhos no alarme...',
-            'tempo': 'O recurso mais valioso do mundo. Não dá pra comprar mais, só saber usar.',
-            'universo': 'Tudo o que existe, existiu ou existirá. E a gente faz parte disso.',
-            'viagem': 'Mudar de ares, conhecer novas culturas e expandir a cabeça.',
-            'xadrez': 'eu so bom',
-            'zoeira': 'não tem limite',
-            
-
-            'ano': () => new Date().getFullYear(),
-            'mes': () => new Date().toLocaleString('pt-BR', { month: 'long' }),
-            'dia': () => new Date().getDate(),
-            'hora': () => new Date().toLocaleTimeString('pt-BR'),
-            'sorte': () => Math.floor(Math.random() * 100) + 1,
-            'fome': 'Hora de fazer uma pausa para o almoço.',
-            'energetico': 'O combustível aqui é o foco e a determinação.',
-            'pausa': 'Pausa estratégica de 5 minutos para esticar as pernas.',
-            'status': 'Todos os serviços rodando em 100% de capacidade.',
-            'dev': 'Gabriel - ADS | Dev em construção.',
-
-            'susto': () => { dispararSusto(); return 'Relaxa, era só brincadeira...'; },
-            'jumpscare': () => { dispararSusto(); return 'Relaxa, era só brincadeira...'; },
-        };
-
-        const comandosExtras = {
-            'segunda': 'Força guerreiro, a semana tá só começando.',
-            'terca': 'Meio do caminho pra sexta, aguenta firme.',
-            'quarta': 'Metade da semana já foi. Bora!',
-            'quinta': 'Quase lá... só mais um pouco.',
-            'sabado': 'Dia de descansar (ou de codar por hobby).',
-
-            'janeiro': 'Mês de recomeço e metas novas.',
-            'fevereiro': 'Mês mais curto, carnaval na área.',
-            'marco': 'Início do outono, volta às aulas.',
-            'abril': 'Mês de chuva e de mentiras (dia 1).',
-            'maio': 'Mês das mães, clima ameno.',
-            'junho': 'Festa junina e frio chegando.',
-            'julho': 'Férias escolares por aqui.',
-            'agosto': 'Mês do vento forte e da poeira.',
-            'setembro': 'Primavera chegando.',
-            'outubro': 'Mês das crianças, halloween no fim.',
-            'novembro': 'Black Friday e reta final do ano.',
-            'dezembro': 'Natal, ano novo e revisão de código de última hora.',
-
-            'vermelho': 'Cor de erro no console e de paixão na vida real.',
-            'azul': 'Cor clássica de link visitado e de calma.',
-            'verde': 'A cor do terminal e de "deu certo".',
-            'amarelo': 'Cor de atenção: cuidado com esse warning.',
-            'roxo': 'Cor de link já clicado e de mistério.',
-            'preto': 'A cor de fundo favorita de todo dev.',
-            'branco': 'Combina com qualquer paleta, até com terminal escuro.',
-            'cinza': 'A cor dos comentários no código (quando tem).',
-            'laranja': 'Cor de destaque, tipo botão de call-to-action.',
-
-            'zero': '0, o início de todo índice de array.',
-            'um': '1, o primeiro elemento (na maioria das linguagens).',
-            'dois': '2, porque um é pouco e três é demais.',
-            'tres': 'O número de tentativas até o código compilar.',
-            'quatro': 'Metade de oito, um quarto de dezesseis.',
-            'cinco': 'A nota que ninguém quer tirar.',
-            'seis': 'Quase sete, quase lá.',
-            'sete': 'Número da sorte de muita gente.',
-            'oito': 'Infinito deitado.',
-            'nove': 'Quase dez, mas não chega.',
-            'dez': 'Nota máxima, ou número de dedos disponíveis pra digitar.',
-
-            'feliz': 'Que bom! Aproveita esse momento.',
-            'triste': 'Sinto muito. Se quiser desabafar, tô aqui.',
-            'cansado': 'Talvez seja hora de uma pausa e um café.',
-            'estressado': 'Respira fundo, um passo de cada vez.',
-            'animado': 'Boa energia! Bora aproveitar.',
-            'nervoso': 'Calma, vai dar tudo certo.',
-            'orgulhoso': 'Merecido! Comemora essa conquista.',
-            'entediado': 'Digite "piada" ou "curiosidade" pra passar o tempo.',
-            'apaixonado': 'Que fofo. Aproveita esse sentimento.',
-
-            'error 500': 'Erro interno do servidor: nem eu sei o que rolou.',
-            'error 401': 'Não autorizado: você tem certeza que devia estar aqui?',
-            'error 403': 'Proibido: essa área não é pra você.',
-            'error 200': 'Tudo certo! Requisição bem-sucedida.',
-            'error 301': 'Redirecionado permanentemente pra outro lugar.',
-
-            'api': 'Application Programming Interface: a ponte entre sistemas diferentes.',
-            'url': 'O endereço que leva até um recurso na web.',
-            'ui': 'User Interface: o que você vê e toca na tela.',
-            'ux': 'User Experience: como é usar aquilo que você vê e toca.',
-
-            'ctrl c': 'Copiar (ou interromper um processo no terminal de verdade).',
-            'ctrl v': 'Colar. O comando favorito de quem programa.',
-            'ctrl z': 'Desfazer. Se soubesse fazer isso na vida real...',
-            'atalhos': 'Ctrl+C copia, Ctrl+V cola, Ctrl+Z desfaz, Ctrl+S salva (sempre salve!).',
-
-            'wifi': 'Conectado, mas a real é que sempre cai na hora do commit.',
-            'senha wifi': 'Ah, essa eu não vou entregar de graça.',
-            'roteador': 'Já tentou desligar e ligar de novo?',
-            'internet': 'A maior biblioteca (e distração) do mundo.',
-            'ip': '192.168.0.1 (mentira, isso é só um clássico).',
-
-            'macos': 'Bonito, caro e ótimo pra quem já tem o ecossistema Apple.',
-            'chrome': 'Come RAM, mas ninguém consegue deixar de usar.',
-            'firefox': 'A escolha de quem valoriza privacidade.',
-            'edge': 'Só serve pra baixar outro navegador (brincadeira).',
-
-            'natal': 'Feliz Natal! Que venha um código sem bugs em 2027.',
-            'ano novo': 'Feliz Ano Novo! Bora resetar as metas.',
-            'aniversario': 'Parabéns! Que venham mais anos de boas conquistas.',
-            'feriado': 'Dia de descanso — até o servidor merece.',
-
-            'matematica': 'Base de tudo, inclusive da lógica de programação.',
-            'portugues': 'Essencial pra escrever um bom README.',
-            'fisica': 'A matéria que explica por que o robô da equipe cai.',
-            'geografia': 'Saber onde fica o datacenter mais próximo, tipo.',
-            'ingles': 'A linguagem oficial da documentação técnica.',
-
-            'mano': 'Fala mano! Suave por aí?',
-            'cara': 'E aí cara, tudo certo?',
-            'sla': 'Também não sei, mas digita "help" que a gente descobre.',
-            'blz': 'Blz! Bora pro próximo comando.',
-            'kkkk': 'kkkkkk boa!',
-            'rs': 'rs, também achei engraçado.',
-
-            'google': 'O primeiro lugar que todo dev procura o erro.',
-            'microsoft': 'Dona do GitHub, do VS Code e do Windows.',
-            'apple': 'Ecossistema fechado, mas hardware bonito.',
-            'meta': 'Dona do Instagram, entre outras redes.',
-            'openai': 'Uma das empresas que popularizou IA generativa.',
-            'anthropic': 'Empresa que desenvolve o Claude, um assistente de IA.',
-            'claude': 'Um assistente de IA. Aqui o terminal só responde os comandos fixos: digite "help".',
-
-            'oi tudo': 'Tudo certo por aqui, e com você?',
-            'default': 'Comando não mapeado. Digite "help" para ver a lista.',
-        };
-
-        Object.assign(systemCommands, comandosExtras);
-
-        const terminalEl = document.querySelector('.terminal');
-        const miniGameOverlay = document.getElementById('miniGameOverlay');
-        const miniGameCanvas = document.getElementById('miniGameCanvas');
-        const miniGameCloseBtn = document.getElementById('miniGameCloseBtn');
-        const miniGameCtx = miniGameCanvas.getContext('2d');
-
-        let jogoAtivo = false;
-        let jogoRodando = false;
-        let jogoAnimId = null;
-
-        const jogoEstado = {
-            largura: 600,
-            altura: 150,
-            chao: 120,
-            jogadorX: 40,
-            jogadorY: 120,
-            jogadorTam: 22,
-            velocidadeY: 0,
-            gravidade: 0.9,
-            forcaPulo: -13,
-            noAr: false,
-            obstaculos: [],
-            velocidade: 5,
-            frame: 0,
-            pontos: 0,
-            gameOver: false,
-        };
-
-        function ajustarTamanhoCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-            const larguraDisponivel = (terminalEl ? terminalEl.clientWidth : miniGameCanvas.parentElement.clientWidth) - 16;
-            const larguraCss = Math.max(240, Math.round(larguraDisponivel || 600));
-            const alturaCss = Math.max(90, Math.min(150, Math.round(larguraCss * 0.26)));
-
-            const jogadorTam = Math.max(16, Math.min(22, Math.round(alturaCss * 0.16)));
-            const noChao = !jogoEstado.noAr;
-
-            jogoEstado.largura = larguraCss;
-            jogoEstado.altura = alturaCss;
-            jogoEstado.jogadorTam = jogadorTam;
-            jogoEstado.jogadorX = Math.round(larguraCss * 0.06);
-            jogoEstado.chao = alturaCss - jogadorTam - 10;
-            jogoEstado.gravidade = alturaCss < 120 ? 0.75 : 0.9;
-            jogoEstado.forcaPulo = alturaCss < 120 ? -11 : -13;
-
-            if (noChao) {
-                jogoEstado.jogadorY = jogoEstado.chao;
-            }
-
-            miniGameCanvas.style.width = larguraCss + 'px';
-            miniGameCanvas.style.height = alturaCss + 'px';
-            miniGameCanvas.width = Math.round(larguraCss * dpr);
-            miniGameCanvas.height = Math.round(alturaCss * dpr);
-            miniGameCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-            desenharJogo();
-        }
-
-        function resetarJogo() {
-            jogoEstado.jogadorY = jogoEstado.chao;
-            jogoEstado.velocidadeY = 0;
-            jogoEstado.noAr = false;
-            jogoEstado.obstaculos = [];
-            jogoEstado.velocidade = 5;
-            jogoEstado.frame = 0;
-            jogoEstado.pontos = 0;
-            jogoEstado.gameOver = false;
-        }
-
-        function pularJogador() {
-            if (!jogoEstado.noAr && !jogoEstado.gameOver) {
-                jogoEstado.velocidadeY = jogoEstado.forcaPulo;
-                jogoEstado.noAr = true;
-            } else if (jogoEstado.gameOver) {
-                resetarJogo();
-                jogoRodando = true;
-            }
-        }
-
-        function desenharJogo() {
-            const ctx = miniGameCtx;
-            const e = jogoEstado;
-            ctx.clearRect(0, 0, e.largura, e.altura);
-
-            ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border-color') || '#333';
-            ctx.beginPath();
-            ctx.moveTo(0, e.chao + e.jogadorTam);
-            ctx.lineTo(e.largura, e.chao + e.jogadorTam);
-            ctx.stroke();
-
-            const corAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent-color') || '#00ff66';
-
-            ctx.fillStyle = corAccent;
-            ctx.fillRect(e.jogadorX, e.jogadorY, e.jogadorTam, e.jogadorTam);
-
-            ctx.fillStyle = corAccent;
-            e.obstaculos.forEach(o => {
-                ctx.fillRect(o.x, e.chao + e.jogadorTam - o.altura, o.largura, o.altura);
-            });
-
-            ctx.fillStyle = corAccent;
-            ctx.font = '14px monospace';
-            ctx.textAlign = 'right';
-            ctx.fillText('pontos: ' + e.pontos, e.largura - 10, 20);
-
-            if (e.gameOver) {
-                ctx.textAlign = 'center';
-                ctx.font = '18px monospace';
-                ctx.fillText('fim de jogo — espaço/toque para tentar de novo', e.largura / 2, e.altura / 2);
-            }
-        }
-
-        function atualizarJogo() {
-            const e = jogoEstado;
-            if (jogoRodando && !e.gameOver) {
-                e.frame++;
-
-                e.jogadorY += e.velocidadeY;
-                e.velocidadeY += e.gravidade;
-                if (e.jogadorY >= e.chao) {
-                    e.jogadorY = e.chao;
-                    e.velocidadeY = 0;
-                    e.noAr = false;
-                }
-
-                if (e.frame % 75 === 0) {
-                    const altura = 18 + Math.random() * 18;
-                    e.obstaculos.push({ x: e.largura, largura: 14, altura: altura });
-                }
-
-                e.velocidade = 5 + Math.floor(e.frame / 400);
-                e.obstaculos.forEach(o => { o.x -= e.velocidade; });
-                e.obstaculos = e.obstaculos.filter(o => o.x + o.largura > 0);
-
-                if (e.frame % 6 === 0) e.pontos++;
-
-                const jx1 = e.jogadorX, jx2 = e.jogadorX + e.jogadorTam;
-                const jyTopo = e.jogadorY;
-                e.obstaculos.forEach(o => {
-                    const ox1 = o.x, ox2 = o.x + o.largura;
-                    const oyTopo = e.chao + e.jogadorTam - o.altura;
-                    const sobrepoeX = jx2 > ox1 && jx1 < ox2;
-                    const sobrepoeY = jyTopo + e.jogadorTam > oyTopo;
-                    if (sobrepoeX && sobrepoeY) {
-                        e.gameOver = true;
-                        jogoRodando = false;
-                    }
-                });
-            }
-
-            desenharJogo();
-            if (jogoAtivo) {
-                jogoAnimId = requestAnimationFrame(atualizarJogo);
-            }
-        }
-
-        function abrirMiniGame() {
-            jogoAtivo = true;
-            jogoRodando = true;
-            miniGameOverlay.classList.add('ativo');
-            ajustarTamanhoCanvas();
-            resetarJogo();
-            terminalInput.disabled = true;
-            terminalSendBtn.disabled = true;
-            if (jogoAnimId) cancelAnimationFrame(jogoAnimId);
-            jogoAnimId = requestAnimationFrame(atualizarJogo);
-            miniGameCloseBtn.focus();
-        }
-
-        function fecharMiniGame() {
-            jogoAtivo = false;
-            jogoRodando = false;
-            if (jogoAnimId) cancelAnimationFrame(jogoAnimId);
-            miniGameOverlay.classList.remove('ativo');
-            terminalInput.disabled = false;
-            terminalSendBtn.disabled = false;
-            terminalInput.focus();
-        }
-
-        miniGameCloseBtn.addEventListener('click', fecharMiniGame);
-
-        let resizeTimeoutId = null;
-        window.addEventListener('resize', () => {
-            if (!jogoAtivo) return;
-            clearTimeout(resizeTimeoutId);
-            resizeTimeoutId = setTimeout(() => {
-                ajustarTamanhoCanvas();
-                resetarJogo();
-            }, 150);
-        });
-        window.addEventListener('orientationchange', () => {
-            if (!jogoAtivo) return;
-            setTimeout(() => {
-                ajustarTamanhoCanvas();
-                resetarJogo();
-            }, 200);
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (!jogoAtivo) return;
-            if (e.code === 'Space' || e.code === 'ArrowUp') {
-                e.preventDefault();
-                pularJogador();
-            } else if (e.code === 'Escape') {
-                e.preventDefault();
-                fecharMiniGame();
-            }
-        });
-
-        miniGameCanvas.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            pularJogador();
-        });
-        miniGameCanvas.addEventListener('mousedown', () => {
-            pularJogador();
-        });
-
-        
-
-        function escaparHtml(texto) {
-            return String(texto).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
-
-        function removerAcentos(str) {
-            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        }
-
-        const systemCommandsNormalizados = {};
-        Object.keys(systemCommands).forEach(chave => {
-            systemCommandsNormalizados[removerAcentos(chave)] = chave;
-        });
-
-        document.getElementById('listaComandosInicial').innerHTML = textoAjuda;
-
-        function appendLine(html, tipo) {
-            const p = document.createElement('p');
-            if (tipo === 'comando') {
-                p.className = 'linha-comando';
-            } else if (tipo === 'erro') {
-                p.className = 'linha-erro';
-            } else if (tipo === 'ia') {
-                p.style.color = 'var(--accent-color)';
-            }
-            p.innerHTML = html;
-            terminalOutput.appendChild(p);
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-            return p;
-        }
-
-        terminalBody.addEventListener('click', () => {
-            if (!terminalInput.disabled) terminalInput.focus();
-        });
-
-        let historicoComandos = [];
-        let indiceHistorico = -1;
-
-        function calcularExpressao(expressao) {
-            const limpa = expressao.replace(/\s+/g, '');
-            if (!/^[0-9+\-*/().]+$/.test(limpa)) {
-                return null;
-            }
-            try {
-                const resultado = Function('"use strict"; return (' + limpa + ')')();
-                if (typeof resultado !== 'number' || !isFinite(resultado)) return null;
-                return resultado;
-            } catch (err) {
-                return null;
-            }
-        }
-
-        terminalInput.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowUp') {
-                if (historicoComandos.length === 0) return;
-                e.preventDefault();
-                indiceHistorico = Math.max(0, indiceHistorico - 1);
-                terminalInput.value = historicoComandos[indiceHistorico] || '';
-            } else if (e.key === 'ArrowDown') {
-                if (historicoComandos.length === 0) return;
-                e.preventDefault();
-                indiceHistorico = Math.min(historicoComandos.length, indiceHistorico + 1);
-                terminalInput.value = historicoComandos[indiceHistorico] || '';
-            }
-        });
-
-        terminalForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (terminalInput.disabled) return;
-
-            const rawVal = terminalInput.value.trim();
-            const inputVal = rawVal.toLowerCase();
-
-            if (rawVal === '') return;
-
-            historicoComandos.push(rawVal);
-            indiceHistorico = historicoComandos.length;
-
-            if (rawVal === 'Gabriel') {
-                appendLine(`<span class="prompt-symbol">gabriel@dev:~$</span> ${escaparHtml(rawVal)}`, 'comando');
-                terminalInput.value = '';
-                appendLine('Modo secreto ativado. Abrindo mini-game...', 'ia');
-                abrirMiniGame();
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-                return;
-            }
-
-            appendLine(`<span class="prompt-symbol">gabriel@dev:~$</span> ${escaparHtml(rawVal)}`, 'comando');
-            terminalInput.value = '';
-
-            const inputSemAcento = removerAcentos(inputVal);
-            const chaveResolvida = systemCommandsNormalizados[inputSemAcento];
-            const ehComandoMatrix = chaveResolvida && comandosMatrix.includes(chaveResolvida);
-            const ehPilulaAzul = inputSemAcento === 'pilula azul' || inputSemAcento === 'blue pill';
-
-            if (inputVal === 'clear' || inputSemAcento === 'cls') {
-                terminalOutput.innerHTML = '';
-            } else if (inputSemAcento === 'history') {
-                if (historicoComandos.length <= 1) {
-                    appendLine('Nenhum comando anterior ainda.');
-                } else {
-                    const ultimos = historicoComandos.slice(-11, -1);
-                    appendLine('Últimos comandos: ' + ultimos.map(c => `<code>${escaparHtml(c)}</code>`).join(', '));
-                }
-            } else if (inputSemAcento.startsWith('calc ') || inputSemAcento.startsWith('calc:')) {
-                const expressao = rawVal.slice(rawVal.toLowerCase().indexOf('calc') + 4).replace(/^:/, '');
-                const resultado = calcularExpressao(expressao);
-                if (resultado === null) {
-                    appendLine('Expressão inválida. Use apenas números e + - * / ( ).', 'erro');
-                } else {
-                    appendLine('Resultado: <b style="color: var(--accent-color);">' + resultado + '</b>');
-                }
-            } else if (ehPilulaAzul && !matrixEncerrada) {
-                terminalOutput.innerHTML = '';
-                matrixEncerrada = true;
-            } else if (chaveResolvida !== undefined && !(matrixEncerrada && ehComandoMatrix)) {
-                const resposta = systemCommands[chaveResolvida];
-                appendLine(typeof resposta === 'function' ? resposta() : resposta);
-            } else {
-                appendLine('comando não encontrado: <code>' + escaparHtml(rawVal) + '</code> — digite "help" para ver a lista.', 'erro');
-            }
-
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-        });
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    });
 </script>
 </body>
 </html>
